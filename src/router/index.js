@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import { inject } from 'vue'
 
-const appConfig = inject('app_config');
+const appConfig = inject('app_config')
 
 
 const router = createRouter({
@@ -14,7 +14,7 @@ const router = createRouter({
       name: 'home',
       component: HomeView,
       meta: {
-        title: 'Sho'
+        title: 'Selector'
       }
     }
   ]
@@ -22,6 +22,6 @@ const router = createRouter({
 
 router.beforeEach((to) => {
   document.title = to.meta.title || 'Sho'
-});
+})
 
 export default router

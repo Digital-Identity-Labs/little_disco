@@ -2,8 +2,7 @@
 
 
 import * as sp from '../utils/sp'
-import UserAttributes from '@/components/UserAttributes.vue'
-import UserSession from '@/components/UserSession.vue'
+
 import { inject } from 'vue'
 
 const appConfig = inject('app_config')
@@ -21,8 +20,7 @@ const appConfig = inject('app_config')
             Overview
           </div>
           <h2 class="page-title">
-            Attribute Viewer
-          </h2>
+            Institution Selector </h2>
         </div>
         <!-- Page title actions -->
         <div class="col-auto ms-auto d-print-none">
@@ -49,9 +47,7 @@ const appConfig = inject('app_config')
     </div>
   </div>
   <br />
-  <UserSession :userData="userData" />
-  <br />
-  <UserAttributes :userData="userData" />
+
 
 
 </template>

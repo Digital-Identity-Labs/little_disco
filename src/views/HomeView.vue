@@ -1,12 +1,13 @@
 <script setup>
-//import UserData from '@/components/UserData.vue'
+import ServiceSelector from '@/components/ServiceSelector.vue'
+import InstitutionSelector from '@/components/InstitutionSelector.vue'
 
 </script>
 
 <template>
 
   <suspense>
-    <!-- <UserData/>-->
+    <ServiceSelector/>
   </suspense>
 
 </template>
