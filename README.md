@@ -39,3 +39,7 @@ npm run test:unit
 ```sh
 npm run lint
 ```
+
+
+Icon by:
+https://thenounproject.com/creator/blaisetsewell/

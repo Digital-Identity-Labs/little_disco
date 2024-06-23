@@ -1,0 +1,6 @@
+{
+  "setting": "value",
+  "service_title": "Little Disco",
+  "session_data_path": "/Shibboleth.sso/SessionData",
+  "logout_path": "/Shibboleth.sso/Logout"
+}

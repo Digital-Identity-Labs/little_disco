@@ -14,7 +14,13 @@
   "dependencies": {
     "pinia": "^2.1.7",
     "vue": "^3.4.21",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.0",
+    "wretch": "^2.6.0",
+    "i18n-iso-countries": "^7.6.0",
+    "javascript-time-ago": "^2.5.9",
+    "list.js": "^2.3.1",
+    "@tabler/core": "^1.0.0-beta19",
+    "crypto-js": "^4.1.1"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.8.0",

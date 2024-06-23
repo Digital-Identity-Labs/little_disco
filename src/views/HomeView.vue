@@ -1,9 +1,12 @@
 <script setup>
-import TheWelcome from '../components/TheWelcome.vue'
+//import UserData from '@/components/UserData.vue'
+
 </script>
 
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+
+  <suspense>
+    <!-- <UserData/>-->
+  </suspense>
+
 </template>
