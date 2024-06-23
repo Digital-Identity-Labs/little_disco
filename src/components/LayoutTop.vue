@@ -1,7 +1,7 @@
 <script setup>
 import { inject } from 'vue'
 
-const appConfig = inject('app_config');
+const appConfig = inject('appConfig');
 
 </script>
 

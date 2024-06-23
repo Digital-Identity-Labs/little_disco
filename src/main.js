@@ -18,6 +18,6 @@ app.use(router)
 
 const userConfig = await backend.fetchData(import.meta.env.BASE_URL + 'ld_config.json');
 const appConfig = defaultConfig.merge(userConfig);
-app.provide('app_config', appConfig);
+app.provide('appConfig', appConfig);
 
 app.mount('#app')

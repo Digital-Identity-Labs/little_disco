@@ -10,6 +10,9 @@ import LayoutFooter from './components/LayoutFooter.vue'
 <template>
   <LayoutTop />
   <div class="page-wrapper">
+    <!-- Page header -->
+
+    <!-- Page body -->
     <div class="page-body">
       <RouterView :key="$route.fullPath"/>
     </div>
