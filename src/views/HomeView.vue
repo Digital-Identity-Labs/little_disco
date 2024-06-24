@@ -1,13 +1,13 @@
 <script setup>
-import ServiceSelector from '@/components/ServiceSelector.vue'
-import InstitutionSelector from '@/components/InstitutionSelector.vue'
+import DestinationSelector from '@/components/DestinationSelector.vue'
+import OriginSelector from '@/components/OriginSelector.vue'
 
 import { useRouter, useRoute } from 'vue-router'
 
 const route = useRoute()
 const queryParams = route.query
 
-const homeMode = queryParams.entityID ? 'disco' : 'services'
+const homeMode = queryParams.entityID ? 'origin' : 'destination'
 const title = homeMode == 'disco' ? 'Select Your Institution' : 'Services'
 
 </script>
@@ -28,8 +28,8 @@ const title = homeMode == 'disco' ? 'Select Your Institution' : 'Services'
   <br />
 
   <suspense>
-    <InstitutionSelector v-if="homeMode === 'disco'" :query-params="queryParams" />
-    <ServiceSelector v-else />
+    <OriginSelector v-if="homeMode === 'origin'" :query-params="queryParams" />
+    <DestinationSelector v-else />
   </suspense>
 
 </template>

@@ -6,7 +6,8 @@ const app_defaults = {
   show_sponsors: true,
   theme: 'default',
   mode: 'default',
-  menu_mode: 'list',
+  destination_mode: 'list',
+  origin_mode: 'simple',
   request_geo: true,
   destinations: [
     {
@@ -31,11 +32,23 @@ const app_defaults = {
       privacy_url: 'https://www.ukfederation.org.uk/content/Documents/TestSPPrivacyPolicy',
       info_url: 'https://www.ukfederation.org.uk/content/Documents/TestSPHome',
       org_name: 'JISC',
-      org_url: 'https://www.jisc.ac.uk',
+      org_url: 'https://www.jisc.ac.uk'
     }
   ],
   origins: [
     {
+      id: 'https://shib.manchester.ac.uk/shibboleth',
+      name: 'The University of Manchester',
+      scopes: 'manchester.ac.uk',
+      description: 'The University of Manchester',
+      logo_url: 'https://login.manchester.ac.uk/disco/logo-80x34-ltd.png',
+      ip_hints: ['130.88.0.0/16'],
+      domain_hints: ['manchester.ac.uk'],
+      geo_hints: ['53.465624,-2.233193', '53.474881,-2.233593', '53.236237,-2.306421', '53.480372,-2.24893', '51.572576,-1.315923', '53.462436,-2.227711', '53.429749,-2.230049', '53.445089,-2.278115', '53.490592,-2.28839', '53.487545,-2.323424', '53.427332,-2.247825', '46.23145,6.050119'],
+      keywords: []
+    },
+    {
+      id: 'https://beta.shib.manchester.ac.uk/shibboleth',
       name: 'The University of Manchester (Beta)',
       scopes: 'manchester.ac.uk',
       description: 'The University of Manchester',

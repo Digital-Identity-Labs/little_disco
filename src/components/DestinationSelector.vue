@@ -1,16 +1,14 @@
 <script setup>
-import ServiceCard from '@/components/ServiceSelector/ServiceCard.vue'
+import DestinationCard from '@/components/DestinationSelector/DestinationCard.vue'
 
 import * as sp from '../utils/sp'
-import * as services from '../utils/services.js'
+import * as destinations from '../utils/destinations.js'
 
 import { inject } from 'vue'
 
 const appConfig = inject('appConfig');
 
-const servicesData = services.listServices(appConfig);
-
-console.log(servicesData);
+const servicesData = destinations.listServices(appConfig);
 
 </script>
 
@@ -19,15 +17,11 @@ console.log(servicesData);
   <div class="container-xl">
     <div class="row row-cards">
 
-
-
-        <ServiceCard
+        <DestinationCard
           v-for="(service) in servicesData"
           :service="service"
           :key="service.id"
         />
-
-
 
     </div>
   </div>
