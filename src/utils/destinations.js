@@ -4,7 +4,6 @@ import  * as backend from './backend';
 
 function listServices(config) {
 
-  console.log(config);
   return config.destinations;
 }
 

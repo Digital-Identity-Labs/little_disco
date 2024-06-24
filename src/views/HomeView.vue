@@ -8,7 +8,7 @@ const route = useRoute()
 const queryParams = route.query
 
 const homeMode = queryParams.entityID ? 'origin' : 'destination'
-const title = homeMode == 'disco' ? 'Select Your Institution' : 'Services'
+const title = homeMode == 'origin' ? 'Select Your Institution' : 'Services'
 
 </script>
 

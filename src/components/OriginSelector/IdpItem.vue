@@ -1,8 +1,12 @@
 <script setup>
 
+import EntityLogo from '@/components/icons/EntityLogo.vue'
+import { inject } from 'vue'
+
 const props = defineProps(['service', 'config'])
 
 const service = props.service
+const appConfig = inject('appConfig');
 
 </script>
 
@@ -11,14 +15,11 @@ const service = props.service
   <div class="list-group-item">
     <div class="row align-items-center">
       <div class="col-auto">
-        <a href="#">
-          <span class="avatar" style="background-image: url(./static/avatars/000m.jpg)"></span>
-        </a>
+        <EntityLogo :service="service" :config="appConfig"/>
       </div>
       <div class="col text-truncate">
-        <a href="#" class="text-reset d-block">Paweł Kuna</a>
-        <div class="d-block text-secondary text-truncate mt-n1">Change deprecated html tags to text decoration classes
-          (#29604)
+        <a href="#" class="text-reset d-block">{{ service.name || service.id }}</a>
+        <div class="d-block text-secondary text-truncate mt-n1">{{ service.description }}
         </div>
       </div>
       <div class="col-auto">
