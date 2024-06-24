@@ -7,8 +7,11 @@ import { useRouter, useRoute } from 'vue-router'
 const route = useRoute()
 const queryParams = route.query
 
-const homeMode = queryParams.entityID ? 'origin' : 'destination'
-const title = homeMode == 'origin' ? 'Select Your Institution' : 'Services'
+import * as discoRequest from '@/utils/disco_request.js'
+
+const request = discoRequest.parseRequest(queryParams, {})
+
+const title = request.homeMode == 'origin' ? 'Select Your Institution' : 'Services'
 
 </script>
 
@@ -28,7 +31,7 @@ const title = homeMode == 'origin' ? 'Select Your Institution' : 'Services'
   <br />
 
   <suspense>
-    <OriginSelector v-if="homeMode === 'origin'" :query-params="queryParams" />
+    <OriginSelector v-if="request.homeMode === 'origin'" :request="request" />
     <DestinationSelector v-else />
   </suspense>
 
