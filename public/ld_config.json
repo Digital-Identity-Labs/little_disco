@@ -1,6 +1,8 @@
 {
-  "setting": "value",
   "service_title": "Little Disco",
-  "session_data_path": "/Shibboleth.sso/SessionData",
-  "logout_path": "/Shibboleth.sso/Logout"
+  "menu_mode": "list",
+  "md_provider_type": "none",
+  "md_provider_url": "/",
+  "logo_provider_type": "none",
+  "logo_provider_url": "/"
 }
