@@ -16,7 +16,9 @@ const appConfig = inject('appConfig');
       </h1>
 
     </div>
+
   </header>
+
 </template>
 
 <style scoped>
