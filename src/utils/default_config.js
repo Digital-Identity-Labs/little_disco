@@ -10,6 +10,8 @@ const app_defaults = {
   origin_mode: 'simple',
   show_settings: true,
   em_default: false,
+  use_plausible: false,
+  plausible_domain: null,
   request_geo: true,
   destinations: [
     {
