@@ -3,11 +3,16 @@ import DestinationSelector from '@/components/DestinationSelector.vue'
 import OriginSelector from '@/components/OriginSelector.vue'
 
 import { useRouter, useRoute } from 'vue-router'
+import { inject, ref, shallowRef } from 'vue'
+import { provide } from 'vue'
 
 const route = useRoute()
 const queryParams = route.query
 
 import * as discoRequest from '@/utils/disco_request.js'
+
+const appConfig = inject('appConfig');
+const expertMode = inject('expertMode');
 
 const request = discoRequest.parseRequest(queryParams, {})
 

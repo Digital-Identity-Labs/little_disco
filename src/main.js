@@ -4,7 +4,7 @@ import '@tabler/core'
 import * as defaultConfig from "@/utils/default_config";
 import * as backend from '@/utils/backend'
 
-import { createApp } from 'vue'
+import { createApp, provide, ref } from 'vue'
 import { createPinia } from 'pinia'
 
 import App from './App.vue'
@@ -19,5 +19,9 @@ app.use(router)
 const userConfig = await backend.fetchData(import.meta.env.BASE_URL + 'ld_config.json');
 const appConfig = defaultConfig.merge(userConfig);
 app.provide('appConfig', appConfig);
+
+const initialEM = appConfig.em_default;
+const expertMode = ref(initialEM);
+app.provide('expertMode', expertMode);
 
 app.mount('#app')

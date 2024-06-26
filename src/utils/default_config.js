@@ -2,12 +2,14 @@ const app_defaults = {
   app_name: 'LittleDisco',
   service_title: 'Little Disco',
   app_url: '/',
-  notice: 'Copyright Digital Identity Ltd 2023, 2024',
+  notice: 'Copyright Digital Identity Ltd 2024',
   show_sponsors: true,
   theme: 'default',
   mode: 'default',
   destination_mode: 'list',
   origin_mode: 'simple',
+  show_settings: true,
+  em_default: false,
   request_geo: true,
   destinations: [
     {
