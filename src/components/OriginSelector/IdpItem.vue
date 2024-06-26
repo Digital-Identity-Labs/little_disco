@@ -1,7 +1,7 @@
 <script setup>
 
 import EntityLogo from '@/components/icons/EntityLogo.vue'
-import * as returner from '@/utils/returner.js'
+import * as redirector from '@/utils/redirector.js'
 
 
 import { inject } from 'vue'
@@ -11,7 +11,7 @@ const props = defineProps(['service', 'request', 'destination'])
 const service = props.service
 const appConfig = inject('appConfig')
 
-const returnURL = returner.buildReturnURL(props.service, props.request, props.destination, appConfig)
+const returnURL = redirector.buildReturnURL(props.service, props.request, props.destination, appConfig)
 
 </script>
 
