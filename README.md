@@ -46,14 +46,18 @@ https://thenounproject.com/creator/blaisetsewell/
 
 https://service.seamlessaccess.org/ds/?entityID=https%3A%2F%2Ftest.ukfederation.org.uk%2Fentity&return=https%3A%2F%2Ftest.ukfederation.org.uk%2FShibboleth.sso%2FLogin%3FSAMLDS%3D1%26target%3Dss%253Amem%253A1f1ac92d3e714281424ce9d3b92055ef615448a5ad11b960d86367fedab67733
 
+https://www.ukfederation.org.uk/content/Documents/Discovery
 
-entityID: https%3A%2F%2Ftest.ukfederation.org.uk%2Fentity
-return: https%3A%2F%2Ftest.ukfederation.org.uk%2FShibboleth.sso%2FWayfinder%3FSAMLDS%3D1%26target%3Dcookie%253A1719240755_2700
+https://docs.oasis-open.org/security/saml/Post2.0/sstc-saml-idp-discovery.pdf
 
-SAMLDS: 1
-target: cookie%3A1719240755_2700
-entityID: https%3A%2F%2Fshib.manchester.ac.uk%2Fshibboleth
-target: https%3A%2F%2Fwayfinder.openathens.net%2F%3FentityID%3Dhttps%253A%252F%252Ftest.ukfederation.org.uk%252Fentity%26return%3Dhttps%253A%252F%252Ftest.ukfederation.org.uk%252FShibboleth.sso%252FWayfinder%253FSAMLDS%253D1%2526target%253Dcookie%25253A1719240755_2700
+https://groups.niso.org/higherlogic/ws/public/download/21376
 
-entityID: https%3A%2F%2Ftest.ukfederation.org.uk%2Fentity
-return: https%3A%2F%2Ftest.ukfederation.org.uk%2FShibboleth.sso%2FSeamlessAccess%3FSAMLDS%3D1%26target%3Dcookie%253A1719240946_0ab8
+https://www.npmjs.com/package/geolocation-utils
+
+https://github.com/balazsbotond/urlcat?tab=readme-ov-file
+
+https://www.npmjs.com/package/qs
+
+https://shibboleth.atlassian.net/wiki/spaces/SP3/pages/2065334348/SSO
+
+https://shibboleth.atlassian.net/wiki/spaces/SP3/pages/2065334685/SessionInitiator#SessionInitiator-SessionInitiator-InitiatorProtocol
