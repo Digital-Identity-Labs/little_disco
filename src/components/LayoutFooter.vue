@@ -1,11 +1,33 @@
 <script setup>
-import { inject } from 'vue'
+import { inject, shallowRef, ref } from 'vue'
 
 const appConfig = inject('appConfig');
+const expertMode = inject('expertMode');
+
+console.log("BOOP");
+console.log(expertMode);
+
+
 </script>
 
 <template>
   <footer class="footer footer-transparent d-print-none">
+    <div class="container-xl">
+      <div class="row text-right align-items-right flex-row-reverse">
+        <div class="col-lg-auto ms-lg-auto">
+          <div v-if="appConfig.show_settings" class="mb-3">
+            <div class="form-label">Settings</div>
+            <label class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" v-model="expertMode" :value="true">
+              <span class="form-check-label">Expert Mode</span>
+            </label>
+          </div>
+        </div>
+        <div class="col-12 col-lg-auto mt-3 mt-lg-0">
+          Bottom: {{ expertMode }}
+        </div>
+      </div>
+    </div>
     <div class="container-xl">
       <div class="row text-center align-items-center flex-row-reverse">
         <div class="col-lg-auto ms-lg-auto">
@@ -28,6 +50,7 @@ const appConfig = inject('appConfig');
       </div>
     </div>
   </footer>
+
 </template>
 
 <style scoped>

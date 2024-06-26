@@ -4,7 +4,7 @@ import DestinationCard from '@/components/DestinationSelector/DestinationCard.vu
 import * as sp from '../utils/sp'
 import * as destinations from '../utils/destinations.js'
 
-import { inject } from 'vue'
+import { inject, shallowRef } from 'vue'
 
 const appConfig = inject('appConfig');
 

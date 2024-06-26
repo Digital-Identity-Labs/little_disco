@@ -1,5 +1,7 @@
 <script setup>
 import EntityLogo from '@/components/icons/EntityLogo.vue'
+import AccessButton from '@/components/DestinationSelector/AccessButton.vue'
+
 const props = defineProps(['service'])
 import { inject } from 'vue'
 
@@ -17,19 +19,20 @@ const service = props.service
           <div class="row align-items-center">
             <div class="col-auto">
 
-              <EntityLogo :service="service" :config="appConfig"/>
+              <EntityLogo :service="service" :config="appConfig" />
 
             </div>
             <div class="col">
               <div :title="service.id" class="card-title">{{ service.name || service.id }}</div>
               <div v-if="service.org_name" class="card-subtitle">By <a v-if="service.org_url"
-                                                                       :href="service.org_url">{{ service.org_name }}</a>
+                                                                       :href="service.org_url">{{ service.org_name
+                }}</a>
               </div>
             </div>
           </div>
         </div>
         <div class="card-actions">
-          <a v-if="service.login_url" :href="service.login_url" class="btn btn-primary ms-auto">Access >></a>
+          <AccessButton :service="service" />
         </div>
       </div>
       <div class="card-body">
