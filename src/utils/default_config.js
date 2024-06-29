@@ -50,6 +50,17 @@ const app_defaults = {
       domain_hints: ['indiid.net'],
       geo_hints: ['53.48095, -2.23743'],
       keywords: ['guest']
+    },
+    {
+      id: 'https://test-idp.ukfederation.org.uk/idp/shibboleth',
+      name: 'UK Federation Test IdP',
+      scopes: 'test.ukfederation.org.uk',
+      description: 'A test IdP for use by UK federation members for testing their SPs',
+      logo_url: 'https://test-idp.ukfederation.org.uk/idp/images/ukfedlogo.jpg',
+      ip_hints: [],
+      domain_hints: [],
+      geo_hints: [],
+      keywords: ['test']
     }
   ],
   df_provider_type: 'none',
