@@ -26,6 +26,9 @@ const initialEM = appConfig.em_default
 const expertMode = ref(initialEM)
 app.provide('expertMode', expertMode)
 
+const discoDestination = ref(null)
+app.provide('discoDestination', discoDestination)
+
 if (appConfig.use_plausible === true) {
 
   const { enableAutoPageviews } = Plausible({

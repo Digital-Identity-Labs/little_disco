@@ -1,13 +1,18 @@
 <script setup>
 
+console.log('Logo starting');
+
 const props = defineProps(['service', 'size'])
 import { inject } from 'vue'
+import * as logo from '../../utils/logo_utils.js';
+
 
 const appConfig = inject('appConfig')
 
 const service = props.service
-const style = props.size == 'small' ? 'max-width:16px;width:100%' : 'max-width:64px;width:100%';
+const style = logo.style(props.size);
 
+console.log(style);
 
 </script>
 

@@ -7,6 +7,9 @@ import * as destinations from '../utils/destinations.js'
 import { inject, shallowRef } from 'vue'
 
 const appConfig = inject('appConfig');
+const discoDestination = inject('discoDestination');
+
+discoDestination.value = null;
 
 const servicesData = destinations.listServices(appConfig);
 
@@ -20,7 +23,9 @@ const servicesData = destinations.listServices(appConfig);
         <DestinationCard
           v-for="(service) in servicesData"
           :service="service"
+          :access="true"
           :key="service.id"
+          :big="false"
         />
 
     </div>

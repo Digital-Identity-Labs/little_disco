@@ -6,23 +6,34 @@ import IdpListSimple from '@/components/OriginSelector/IdpSimple.vue'
 
 import * as destinations from '../utils/destinations.js'
 
-import * as sp from '../utils/sp'
 import { shallowRef } from 'vue'
 import { inject } from 'vue'
-import DestinationCard from '@/components/OriginSelector/DestinationCard.vue'
 
 const props = defineProps(['request'])
 
+console.log('4')
+
 const appConfig = inject('appConfig')
+const discoDestination = inject('discoDestination');
+
+console.log('5')
+
 
 const activeISC = shallowRef(IdpList);
+console.log('6')
+
+
 const destination = destinations.lookupService(props.request.entityID, appConfig);
+
+console.log('7')
+
+discoDestination.value = destination;
+
+console.log('8')
 
 </script>
 
 <template>
-
-  <!--<DestinationCard :service="destination"/>-->
 
   <div v-if="appConfig.origin_mode === 'simple'" class="container-xl">
     <div class="row row-cards">

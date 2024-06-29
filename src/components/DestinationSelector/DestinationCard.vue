@@ -2,17 +2,19 @@
 import EntityLogo from '@/components/icons/EntityLogo.vue'
 import AccessButton from '@/components/DestinationSelector/AccessButton.vue'
 
-const props = defineProps(['service'])
+const props = defineProps(['service', 'access', 'big'])
 import { inject } from 'vue'
 
 const appConfig = inject('appConfig')
 
-const service = props.service
+const service = props.service;
+
+const widthStyleClass = props.big === true ? 'col-md-12' : 'col-md-6';
 
 </script>
 
 <template>
-  <div class="col-md-6">
+  <div :class="widthStyleClass">
     <div class="card">
       <div class="card-header">
         <div>
@@ -32,7 +34,7 @@ const service = props.service
           </div>
         </div>
         <div class="card-actions">
-          <AccessButton :service="service" />
+          <AccessButton v-if="access" :service="service" />
         </div>
       </div>
       <div class="card-body">
