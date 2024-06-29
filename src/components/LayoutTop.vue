@@ -3,14 +3,8 @@ import { inject } from 'vue'
 import EntityLogo from '@/components/icons/EntityLogo.vue'
 import DestinationCard from '@/components/DestinationSelector/DestinationCard.vue'
 
-console.log('1');
-
-
 const appConfig = inject('appConfig');
 const discoDestination = inject('discoDestination');
-
-console.log('2');
-
 
 </script>
 
@@ -22,10 +16,8 @@ console.log('2');
         <span class="navbar-toggler-icon"></span>
       </button>
       <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
-        <a href=".">
           <img src="@/assets/ld_logo.png" class="top_logo"/>
           {{appConfig.service_title}}
-        </a>
       </h1>
       <div class="navbar-nav flex-row order-md-last">
 
