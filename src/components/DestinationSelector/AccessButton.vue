@@ -21,7 +21,7 @@ const expertInitiators = redirector.buildDefaultInitiatorURLs(service);
 
     <a v-if="expertMode === true" :href="service.login_url">
       <div class="btn-group">
-        <button type="button" class="btn btn-danger">Access >></button>
+        <button type="button" class="btn btn-danger"><span class="d-md-none d-lg-block">Access&nbsp;</span> >></button>
         <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"
                 aria-expanded="false">
           <span class="visually-hidden">Toggle Dropdown</span>
@@ -37,11 +37,11 @@ const expertInitiators = redirector.buildDefaultInitiatorURLs(service);
       </div>
     </a>
 
-    <a v-else :href="defaultInitiator" class="btn btn-primary ms-auto">Access >></a>
+    <a v-else :href="defaultInitiator" class="btn btn-primary ms-auto"><span class="d-md-none d-lg-block">Access&nbsp;</span> >></a>
 
   </template>
 
-  <a v-else class="btn btn-primary ms-auto disabled">Access >></a>
+  <a v-else class="btn btn-primary ms-auto disabled"><span class="d-md-none d-lg-block">Access&nbsp;>></span> >></a>
 
 
 </template>

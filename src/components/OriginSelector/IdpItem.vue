@@ -25,7 +25,7 @@ const returnURL = redirector.buildReturnURL(props.service, props.request, props.
             <EntityLogo :service="props.service" :config="appConfig" />
           </div>
           <div class="col text-truncate">
-            <span href="#" class="text-reset d-block">{{ service.name || service.id }}</span>
+            <strong><span href="#" class="text-reset d-block">{{ service.name || service.id }}</span></strong>
             <div class="d-block text-secondary text-truncate mt-n1">{{ service.description }}
             </div>
           </div>
