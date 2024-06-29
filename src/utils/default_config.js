@@ -49,7 +49,8 @@ const app_defaults = {
       ip_hints: [],
       domain_hints: ['indiid.net'],
       geo_hints: ['53.48095, -2.23743'],
-      keywords: ['guest']
+      keywords: ['guest'],
+      hide: true,
     },
     {
       id: 'https://test-idp.ukfederation.org.uk/idp/shibboleth',
@@ -60,7 +61,8 @@ const app_defaults = {
       ip_hints: [],
       domain_hints: [],
       geo_hints: [],
-      keywords: ['test']
+      keywords: ['test'],
+      hide: false,
     }
   ],
   df_provider_type: 'none',

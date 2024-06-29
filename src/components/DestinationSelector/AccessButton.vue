@@ -10,13 +10,8 @@ const expertMode = inject('expertMode')
 
 const service = props.service
 
-console.log("BOOOPLE")
-
 const defaultInitiator = redirector.buildInitiatorURL(service);
 const expertInitiators = redirector.buildDefaultInitiatorURLs(service);
-
-console.log(defaultInitiator)
-console.log(expertInitiators)
 
 </script>
 

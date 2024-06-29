@@ -4,10 +4,6 @@ import { inject, shallowRef, ref } from 'vue'
 const appConfig = inject('appConfig');
 const expertMode = inject('expertMode');
 
-console.log("BOOP");
-console.log(expertMode);
-
-
 </script>
 
 <template>

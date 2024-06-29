@@ -11,25 +11,15 @@ import { inject } from 'vue'
 
 const props = defineProps(['request'])
 
-console.log('4')
-
 const appConfig = inject('appConfig')
 const discoDestination = inject('discoDestination');
-
-console.log('5')
-
+const expertMode = inject('expertMode');
 
 const activeISC = shallowRef(IdpList);
-console.log('6')
-
 
 const destination = destinations.lookupService(props.request.entityID, appConfig);
 
-console.log('7')
-
 discoDestination.value = destination;
-
-console.log('8')
 
 </script>
 
