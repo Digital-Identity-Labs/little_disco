@@ -5,6 +5,7 @@ import { inject, ref } from 'vue'
 import { reactive, computed } from 'vue'
 import OriginItem from '@/components/OriginSelector/OriginItem.vue'
 import * as filters from '@/utils/service_filter.js'
+import * as suggestionEngine from '@/utils/suggestion_engine.js'
 
 const props = defineProps(['request', 'destination', 'servicesData'])
 
@@ -12,7 +13,9 @@ const appConfig = inject('appConfig')
 const expertMode = inject('expertMode')
 const em = reactive(expertMode.value)
 
-const servicesData =  props.servicesData;
+//const servicesData =  [];
+
+const favouriteServices = suggestionEngine.initialSuggestionList(props.servicesData, props.request, appConfig);
 
 </script>
 
@@ -25,7 +28,7 @@ const servicesData =  props.servicesData;
   <div class="list-group list-group-flush list-group-hoverable">
 
     <OriginItem
-      v-for="(service) in servicesData"
+      v-for="(service) in favouriteServices"
       :service="service"
       :request="props.request"
       :destination="props.destination"

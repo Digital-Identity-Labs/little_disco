@@ -1,14 +1,16 @@
 <script setup>
-import OriginAdd from '@/components/OriginSelector/OriginAdd.vue'
-import OriginEdit from '@/components/OriginSelector/OriginEdit.vue'
-import OriginFavourites from '@/components/OriginSelector/OriginFavourites.vue'
-import OriginSimpleList from '@/components/OriginSelector/OriginSimpleList.vue'
+import OriginAdd from '@/components/OriginSelector/OriginStandard/OriginAdd.vue'
+import OriginEdit from '@/components/OriginSelector/OriginStandard/OriginEdit.vue'
+import OriginFavourites from '@/components/OriginSelector/OriginStandard/OriginFavourites.vue'
+import OriginSuggestions from '@/components/OriginSelector/OriginStandard/OriginSuggestions.vue'
+
+import OriginSimpleList from '@/components/OriginSelector/OriginSimple/OriginList.vue'
 
 import * as destinations from '../utils/destinations.js'
 
-import {Netmask} from 'netmask';
+import { Netmask } from 'netmask'
 
-var block = new Netmask('10.0.0.0/12');
+var block = new Netmask('10.0.0.0/12')
 
 import { ref } from 'vue'
 import { inject } from 'vue'
@@ -21,17 +23,14 @@ const discoDestination = inject('discoDestination')
 const expertMode = inject('expertMode')
 
 
+const destination = destinations.lookupService(props.request.entityID, appConfig)
 
-const destination = destinations.lookupService(props.request.entityID, appConfig);
+discoDestination.value = destination
 
-discoDestination.value = destination;
+const origins = originsStrategy.is(appConfig.df_provider_type)
+const servicesData = await origins.listServices(appConfig)
 
-const origins = originsStrategy.is(appConfig.df_provider_type);
-
-
-const servicesData = await origins.listServices(appConfig);
-
-console.log(servicesData);
+const favouriteServices = []
 
 </script>
 
@@ -39,7 +38,7 @@ console.log(servicesData);
 
   <div v-if="appConfig.origin_mode === 'simple'" class="container-xl">
     <div class="row row-cards">
-  <OriginSimpleList :request="props.request" :destination="destination" />
+      <OriginSimpleList :request="props.request" :destination="destination" />
     </div>
   </div>
 
@@ -51,21 +50,24 @@ console.log(servicesData);
             <div class="tab-content">
               <!-- Content of card #1 -->
               <div id="tab-bottom-1" class="card tab-pane active show" role="tabpanel">
-                  <KeepAlive>
-             <OriginFavourites :request="props.request" :destination="destination" :servicesData="servicesData"/>
-                  </KeepAlive>
+                <KeepAlive>
+                  <OriginSuggestions v-if="favouriteServices.length === 0" :request="props.request"
+                                     :destination="destination" :servicesData="servicesData" />
+                  <OriginFavourites v-else :request="props.request" :destination="destination"
+                                    :servicesData="servicesData" />
+                </KeepAlive>
               </div>
               <!-- Content of card #2 -->
               <div id="tab-bottom-2" class="card tab-pane" role="tabpanel">
-                  <KeepAlive>
-               <OriginAdd :request="props.request" :destination="destination" :servicesData="servicesData"/>
-                  </KeepAlive>
+                <KeepAlive>
+                  <OriginAdd :request="props.request" :destination="destination" :servicesData="servicesData" />
+                </KeepAlive>
               </div>
               <!-- Content of card #3 -->
               <div id="tab-bottom-3" class="card tab-pane" role="tabpanel">
-                  <KeepAlive>
-            <OriginEdit :request="props.request" :destination="destination" :servicesData="servicesData"/>
-                  </KeepAlive>
+                <KeepAlive>
+                  <OriginEdit :request="props.request" :destination="destination" :servicesData="servicesData" />
+                </KeepAlive>
               </div>
 
             </div>
@@ -75,7 +77,8 @@ console.log(servicesData);
                                                           data-bs-toggle="tab" aria-selected="true" role="tab">Favourites</a>
               </li>
               <li class="nav-item" role="presentation"><a href="#tab-bottom-2" class="nav-link" data-bs-toggle="tab"
-                                                          aria-selected="false" tabindex="-1" role="tab">Find & Add</a></li>
+                                                          aria-selected="false" tabindex="-1" role="tab">Find & Add</a>
+              </li>
               <li class="nav-item" role="presentation"><a href="#tab-bottom-3" class="nav-link" data-bs-toggle="tab"
                                                           aria-selected="false" tabindex="-1" role="tab">Edit</a></li>
             </ul>

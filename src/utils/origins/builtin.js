@@ -2,7 +2,7 @@
 import  * as entityIDUtils from '@/utils/entity_id_utils';
 import  * as backend from '@/utils/backend';
 
-function listServices(config) {
+async function listServices(config) {
 
   return config.origins;
 }

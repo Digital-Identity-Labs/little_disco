@@ -1,4 +1,5 @@
 {
+  "origin_mode": "full",
   "df_provider_type": "udisco",
   "df_provider_url": "/data/uk_en.json",
   "destinations": [
