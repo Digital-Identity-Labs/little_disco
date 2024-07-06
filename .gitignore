@@ -30,3 +30,5 @@ coverage
 *.tsbuildinfo
 /DiscoFeed.json
 *.tgz
+/public/data/uk_en.json
+/public/data/ie_en.json

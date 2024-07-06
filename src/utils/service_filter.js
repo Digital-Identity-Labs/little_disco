@@ -4,13 +4,9 @@ function hideFilter(service) {
 
 function maybeHide(services, expertMode) {
 
-  console.log('1')
-
   if (expertMode === true) {
-    console.log('a')
     return services;
   } else {
-    console.log('b')
     return services.filter(hideFilter)
   }
 }

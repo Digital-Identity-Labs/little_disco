@@ -6,7 +6,7 @@ import * as filters from '@/utils/service_filter.js'
 
 import { inject } from 'vue'
 
-const props = defineProps(['service', 'request', 'destination', 'expertMode'])
+const props = defineProps(['service', 'request', 'destination', 'expertMode', 'servicesData'])
 
 const service = props.service
 const appConfig = inject('appConfig')

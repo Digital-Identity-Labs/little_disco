@@ -7,7 +7,7 @@ const app_defaults = {
   theme: 'default',
   mode: 'default',
   destination_mode: 'list',
-  origin_mode: 'simple',
+  origin_mode: 'normal',
   show_settings: true,
   em_default: false,
   use_plausible: false,
@@ -65,7 +65,7 @@ const app_defaults = {
       hide: false,
     }
   ],
-  df_provider_type: 'none',
+  df_provider_type: 'builtin',
   df_provider_url: null,
   md_provider_type: 'none',
   md_provider_url: null,
