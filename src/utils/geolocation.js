@@ -4,8 +4,7 @@ async function getLocation(appConfig) {
   if (appConfig.request_geo === true) {
     try {
       const position = await getCurrentPosition()
-      console.log(position)
-      return `${position.coords.latitude}, ${position.coords.longitude}`
+      return {lat: parseFloat(position.coords.latitude), lon: parseFloat(position.coords.longitude)}
     } catch (error) {
       console.log(error)
       return null;
