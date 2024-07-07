@@ -1,9 +1,14 @@
-function initialSuggestionList(services, request, appConfig) {
+import { useGeolocation } from '@vueuse/core'
+
+function initialSuggestionList(services, coords, ip, appConfig) {
 
   console.log('Building suggestions...')
-  console.log(request);
 
-  return [];
+
+
+
+
+  return []
 }
 
 export { initialSuggestionList }

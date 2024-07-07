@@ -17,5 +17,8 @@ export default defineConfig({
     supported: {
       'top-level-await': true
     },
-  }
+  },
+  server: {
+    headers: {'LittleDisco-CIP': '130.88.125.125'},
+  },
 })

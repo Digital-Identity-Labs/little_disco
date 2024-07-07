@@ -70,7 +70,9 @@ const app_defaults = {
   md_provider_type: 'none',
   md_provider_url: null,
   logo_provider_type: 'none',
-  logo_provider_url: null
+  logo_provider_url: null,
+  net_provider_type: 'header',
+  net_provider_url: '/'
 }
 
 

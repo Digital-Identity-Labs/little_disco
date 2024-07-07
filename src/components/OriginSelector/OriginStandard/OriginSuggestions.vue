@@ -3,9 +3,13 @@
 
 import { inject, ref } from 'vue'
 import { reactive, computed } from 'vue'
+import { useGeolocation } from '@vueuse/core'
+
 import OriginItem from '@/components/OriginSelector/OriginItem.vue'
 import * as filters from '@/utils/service_filter.js'
 import * as suggestionEngine from '@/utils/suggestion_engine.js'
+import * as originsStrategy from '@/utils/origins.js'
+import * as netStrategy from '@/utils/network.js'
 
 const props = defineProps(['request', 'destination', 'servicesData'])
 
@@ -14,8 +18,20 @@ const expertMode = inject('expertMode')
 const em = reactive(expertMode.value)
 
 //const servicesData =  [];
+if (appConfig.request_geo) {
+  const { coords } = useGeolocation()
+}
 
-const favouriteServices = suggestionEngine.initialSuggestionList(props.servicesData, props.request, appConfig);
+const netService = netStrategy.is(appConfig.net_provider_type);
+const ipAddress = await netService.getIPAddress(appConfig);
+
+console.log("Address!")
+console.log(ipAddress);
+
+const suggestedServices = suggestionEngine.initialSuggestionList(props.servicesData, '', null, appConfig)
+
+
+
 
 </script>
 
@@ -28,7 +44,7 @@ const favouriteServices = suggestionEngine.initialSuggestionList(props.servicesD
   <div class="list-group list-group-flush list-group-hoverable">
 
     <OriginItem
-      v-for="(service) in favouriteServices"
+      v-for="(service) in suggestedServices"
       :service="service"
       :request="props.request"
       :destination="props.destination"
