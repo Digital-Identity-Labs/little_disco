@@ -1,14 +1,31 @@
-function hideFilter(service) {
-  return !!(service.hide) === false;
-}
+import { inRange, isIP } from 'range_check'
 
-function maybeHide(services, expertMode) {
 
+
+function maybeFilterByHidden(services, expertMode) {
   if (expertMode === true) {
     return services;
   } else {
-    return services.filter(hideFilter)
+    return services.filter(isServiceHidden)
   }
 }
 
-export { maybeHide,  hideFilter}
+function filterByNetwork(services, userIP) {
+  return services.filter((service) => {
+    if (!isIP(userIP)) {
+      return false;
+    } else if (!Array.isArray(service.ip) || !service.ip.length) {
+      return false;
+    } else {
+      return inRange(userIP, service.ip);
+    }
+  });
+
+}
+
+function isServiceHidden(service) {
+  return !!(service.hide) === false;
+}
+
+
+export { maybeFilterByHidden, filterByNetwork}

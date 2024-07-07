@@ -1,14 +1,21 @@
-import { useGeolocation } from '@vueuse/core'
-
-function initialSuggestionList(services, coords, ip, appConfig) {
-
-  console.log('Building suggestions...')
 
 
+import * as serviceFilters from '@/utils/service_filter.js'
+
+function initialSuggestionList(services, data, appConfig) {
 
 
+  const netSelection = serviceFilters.filterByNetwork(services, data.ip);
 
-  return []
+  console.log(netSelection)
+
+  return netSelection;
 }
+
+
+
+
+
+
 
 export { initialSuggestionList }

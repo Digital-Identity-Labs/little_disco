@@ -3,6 +3,7 @@
   "df_provider_type": "udisco",
   "df_provider_url": "/data/uk_en.json",
   "net_provider_type": "header",
+  "request_geo": true,
   "destinations": [
     {
       "id": "https://sho.digitalidentitylabs.com/shibboleth",

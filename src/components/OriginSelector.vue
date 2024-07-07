@@ -8,10 +8,6 @@ import OriginSimpleList from '@/components/OriginSelector/OriginSimple/OriginLis
 
 import * as destinations from '../utils/destinations.js'
 
-import { Netmask } from 'netmask'
-
-var block = new Netmask('10.0.0.0/12')
-
 import { ref } from 'vue'
 import { inject } from 'vue'
 import * as originsStrategy from '@/utils/origins.js'

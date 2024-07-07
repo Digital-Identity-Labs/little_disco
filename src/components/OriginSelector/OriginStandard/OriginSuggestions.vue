@@ -8,6 +8,7 @@ import { useGeolocation } from '@vueuse/core'
 import OriginItem from '@/components/OriginSelector/OriginItem.vue'
 import * as filters from '@/utils/service_filter.js'
 import * as suggestionEngine from '@/utils/suggestion_engine.js'
+import * as geoLocation from '@/utils/geolocation.js'
 import * as originsStrategy from '@/utils/origins.js'
 import * as netStrategy from '@/utils/network.js'
 
@@ -18,18 +19,12 @@ const expertMode = inject('expertMode')
 const em = reactive(expertMode.value)
 
 //const servicesData =  [];
-if (appConfig.request_geo) {
-  const { coords } = useGeolocation()
-}
+const geo = await geoLocation.getLocation(appConfig);
 
-const netService = netStrategy.is(appConfig.net_provider_type);
-const ipAddress = await netService.getIPAddress(appConfig);
+const netService = netStrategy.is(appConfig.net_provider_type)
+const ipAddress = await netService.getIPAddress(appConfig)
 
-console.log("Address!")
-console.log(ipAddress);
-
-const suggestedServices = suggestionEngine.initialSuggestionList(props.servicesData, '', null, appConfig)
-
+const suggestedServices = suggestionEngine.initialSuggestionList(props.servicesData, { ip: ipAddress, geo: geo}, appConfig)
 
 
 
