@@ -5,13 +5,29 @@ import * as redirector from '@/utils/redirector.js'
 import * as filters from '@/utils/service_filter.js'
 
 import { inject } from 'vue'
+import { useStorage } from '@vueuse/core'
 
-const props = defineProps(['service', 'request', 'destination', 'expertMode', 'servicesData'])
+const props = defineProps(['service', 'request', 'destination', 'expertMode', 'itemMode'])
 
 const service = props.service
 const appConfig = inject('appConfig')
 
 const returnURL = redirector.buildReturnURL(props.service, props.request, props.destination, appConfig)
+
+function favorite(service, mode = 'open') {
+  const favouriteServices = useStorage('userFavorites', []);
+  if (mode === 'edit') {
+    const editList = new Set(favouriteServices.value);
+
+  } else {
+    console.log('Remembering:');
+    console.log(service.id);
+    favouriteServices.value = [service];
+  }
+
+}
+
+
 
 </script>
 
@@ -19,7 +35,7 @@ const returnURL = redirector.buildReturnURL(props.service, props.request, props.
 
   <transition>
     <div  class="list-group-item" v-if="expertMode === true || !!(service.hide) === false">
-      <a class="no-underline" :href="returnURL">
+      <a  class="no-underline" @click="favorite(service, itemMode)" :href="returnURL">
         <div class="row align-items-center">
           <div class="col-auto">
             <EntityLogo :service="props.service" :config="appConfig" />

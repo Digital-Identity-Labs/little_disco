@@ -5,6 +5,7 @@ import { inject, ref } from 'vue'
 import { reactive, computed } from 'vue'
 import OriginItem from '@/components/OriginSelector/OriginItem.vue'
 import * as filters from '@/utils/service_filter.js'
+import { useStorage } from '@vueuse/core'
 
 const props = defineProps(['request', 'destination', 'servicesData'])
 
@@ -14,7 +15,10 @@ const em = reactive(expertMode.value)
 
 //const servicesData =  [];
 
-const favouriteServices = [];
+const favouriteServices = useStorage('userFavorites', [])
+
+console.log('Favourites');
+console.log(favouriteServices)
 
 </script>
 

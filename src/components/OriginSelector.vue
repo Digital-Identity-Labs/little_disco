@@ -9,6 +9,7 @@ import OriginSimpleList from '@/components/OriginSelector/OriginSimple/OriginLis
 import * as destinations from '../utils/destinations.js'
 
 import { ref } from 'vue'
+import { useStorage } from '@vueuse/core'
 import { inject } from 'vue'
 import * as originsStrategy from '@/utils/origins.js'
 
@@ -26,7 +27,12 @@ discoDestination.value = destination
 const origins = originsStrategy.is(appConfig.df_provider_type)
 const servicesData = await origins.listServices(appConfig)
 
-const favouriteServices = []
+const favouriteServices = useStorage('userFavorites', [])
+const hasFavourites = favouriteServices.value.length > 0
+
+console.log('Favourites');
+console.log(favouriteServices)
+
 
 </script>
 
@@ -47,10 +53,11 @@ const favouriteServices = []
               <!-- Content of card #1 -->
               <div id="tab-bottom-1" class="card tab-pane active show" role="tabpanel">
                 <KeepAlive>
-                  <OriginSuggestions v-if="favouriteServices.length === 0" :request="props.request"
-                                     :destination="destination" :servicesData="servicesData" />
-                  <OriginFavourites v-else :request="props.request" :destination="destination"
+                  <OriginFavourites v-if="!!hasFavourites" :request="props.request" :destination="destination"
                                     :servicesData="servicesData" />
+                  <OriginSuggestions v-else :request="props.request"
+                                     :destination="destination" :servicesData="servicesData" />
+
                 </KeepAlive>
               </div>
               <!-- Content of card #2 -->
@@ -70,7 +77,8 @@ const favouriteServices = []
             <!-- Cards navigation -->
             <ul class="nav nav-tabs nav-tabs-bottom" role="tablist">
               <li class="nav-item" role="presentation"><a href="#tab-bottom-1" class="nav-link active"
-                                                          data-bs-toggle="tab" aria-selected="true" role="tab">Favourites</a>
+                                                          data-bs-toggle="tab" aria-selected="true" role="tab">
+                <span v-if="hasFavourites">Favourites</span><span v-else>Suggestions</span></a>
               </li>
               <li class="nav-item" role="presentation"><a href="#tab-bottom-2" class="nav-link" data-bs-toggle="tab"
                                                           aria-selected="false" tabindex="-1" role="tab">Find & Add</a>
