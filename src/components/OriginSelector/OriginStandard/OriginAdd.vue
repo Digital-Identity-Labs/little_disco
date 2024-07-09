@@ -16,7 +16,7 @@ const miniSearch = new MiniSearch({
 })
 
 // Index all documents
-miniSearch.addAll(props.servicesData)
+miniSearch.addAll(props.servicesData.values())
 
 const searchInput = ref("");
 

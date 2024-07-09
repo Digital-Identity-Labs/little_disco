@@ -44,7 +44,6 @@ const app_defaults = {
     {
       id: 'https://indiid.net/idp/shibboleth',
       name: 'Indiid',
-      scopes: 'indiid.net',
       description: 'An independent identity provider',
       logo_url: 'https://indiid.net/assets/images/logo-compact-medium.png',
       ip_hints: [],
@@ -56,7 +55,6 @@ const app_defaults = {
     {
       id: 'https://test-idp.ukfederation.org.uk/idp/shibboleth',
       name: 'UK Federation Test IdP',
-      scopes: 'test.ukfederation.org.uk',
       description: 'A test IdP for use by UK federation members for testing their SPs',
       logo_url: 'https://test-idp.ukfederation.org.uk/idp/images/ukfedlogo.jpg',
       ip_hints: [],

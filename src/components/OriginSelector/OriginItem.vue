@@ -27,8 +27,6 @@ function favorite(service, mode = 'open') {
 
 }
 
-
-
 </script>
 
 <template>
@@ -42,7 +40,7 @@ function favorite(service, mode = 'open') {
           </div>
           <div class="col text-truncate">
             <strong><span href="#" class="text-reset d-block">{{ service.name || service.id }}</span></strong>
-            <div class="d-block text-secondary text-truncate mt-n1">{{ service.description }}
+            <div class="d-block text-secondary text-truncate mt-n1">{{ service.desc || "&nbsp;" }}
             </div>
           </div>
           <div class="col-auto">

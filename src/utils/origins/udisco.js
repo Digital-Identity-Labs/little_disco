@@ -4,8 +4,8 @@ import  * as backend from '@/utils/backend';
 
  async function listServices(config) {
   const services = await backend.fetchData(config.df_provider_url);
-
-  return services;
+  const origins = new Map(services.map(s => [s.id, s]));
+  return origins;
  }
 
 export {

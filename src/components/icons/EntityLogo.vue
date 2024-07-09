@@ -14,7 +14,7 @@ const style = logo.style(props.size);
 
 <template>
 
-  <img v-if="service.logo_url" :src="service.logo_url" class="img-thumbnail"
+  <img v-if="service.logo" :src="service.logo" class="img-thumbnail"
        :style="style" />
 
 </template>
