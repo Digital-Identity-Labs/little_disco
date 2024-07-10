@@ -7,18 +7,11 @@ import OriginItem from '@/components/OriginSelector/OriginItem.vue'
 import * as filters from '@/utils/service_filter.js'
 import { useStorage } from '@vueuse/core'
 
-const props = defineProps(['request', 'destination', 'servicesData'])
+const props = defineProps(['request', 'destination', 'favouriteServices'])
 
 const appConfig = inject('appConfig')
 const expertMode = inject('expertMode')
 const em = reactive(expertMode.value)
-
-//const servicesData =  [];
-
-const favouriteServices = useStorage('userFavorites', [])
-
-console.log('Favourites');
-console.log(favouriteServices)
 
 </script>
 
@@ -31,7 +24,7 @@ console.log(favouriteServices)
   <div class="list-group list-group-flush list-group-hoverable">
 
     <OriginItem
-      v-for="(service) in favouriteServices"
+      v-for="(service) in props.favouriteServices"
       :service="service"
       :request="props.request"
       :destination="props.destination"

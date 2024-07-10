@@ -8,10 +8,11 @@ import OriginSimpleList from '@/components/OriginSelector/OriginSimple/OriginLis
 
 import * as destinations from '../utils/destinations.js'
 
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useStorage } from '@vueuse/core'
 import { inject } from 'vue'
 import * as originsStrategy from '@/utils/origins.js'
+import * as favouriteStore from '@/utils/favourites.js'
 
 const props = defineProps(['request'])
 
@@ -27,11 +28,26 @@ discoDestination.value = destination
 const origins = originsStrategy.is(appConfig.df_provider_type)
 const servicesData = await origins.listServices(appConfig)
 
-const favouriteServices = useStorage('userFavorites', [])
-const hasFavourites = favouriteServices.value.length > 0
+console.log('A')
 
-console.log('Favourites');
-console.log(favouriteServices)
+const favouriteIDs = favouriteStore.loadFavourites()
+
+console.log('B')
+
+
+const hasFavourites = favouriteIDs.value.length > 0
+
+console.log('C')
+
+
+const favouriteServices = favouriteIDs.value.map((id) => servicesData.get(id));
+
+console.log('D')
+
+
+console.log(favouriteServices.value);
+
+console.log('E')
 
 
 </script>
@@ -54,7 +70,7 @@ console.log(favouriteServices)
               <div id="tab-bottom-1" class="card tab-pane active show" role="tabpanel">
                 <KeepAlive>
                   <OriginFavourites v-if="!!hasFavourites" :request="props.request" :destination="destination"
-                                    :servicesData="servicesData" />
+                                    :favouriteServices="favouriteServices" />
                   <OriginSuggestions v-else :request="props.request"
                                      :destination="destination" :servicesData="servicesData" />
 
@@ -69,7 +85,7 @@ console.log(favouriteServices)
               <!-- Content of card #3 -->
               <div id="tab-bottom-3" class="card tab-pane" role="tabpanel">
                 <KeepAlive>
-                  <OriginEdit :request="props.request" :destination="destination" :servicesData="servicesData" />
+                  <OriginEdit :request="props.request" :destination="destination"  :favouriteServices="favouriteServices" />
                 </KeepAlive>
               </div>
 
