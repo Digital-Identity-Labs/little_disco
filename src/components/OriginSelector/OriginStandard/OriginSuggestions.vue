@@ -24,9 +24,12 @@ const geo = await geoLocation.getLocation(appConfig);
 const netService = netStrategy.is(appConfig.net_provider_type)
 const ipAddress = await netService.getIPAddress(appConfig)
 
+console.log("ALMOST DONE")
+
+
 const suggestedServices = suggestionEngine.initialSuggestionList(props.servicesData, { ip: ipAddress, geo: geo}, appConfig)
 
-
+console.log("DONE")
 
 </script>
 

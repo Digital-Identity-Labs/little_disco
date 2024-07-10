@@ -6,7 +6,7 @@ function maybeFilterByHidden(services, expertMode) {
   if (expertMode === true) {
     return services
   } else {
-    return services.filter(isServiceHidden)
+    return services.filter(isServiceHidden())
   }
 }
 
