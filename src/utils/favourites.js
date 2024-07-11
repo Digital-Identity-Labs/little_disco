@@ -4,37 +4,38 @@ function loadFavourites(appConfig) {
   return useStorage('userFavorites', [])
 }
 
-function resetFavourites(appConfig) {
-  const favs = loadFavourites(appConfig)
-  favs.value = []
-  return favs
+function resetFavourites(favourites, appConfig) {
+  favourites.value = []
+  return favourites.value;
 }
 
-function addFavourite(service, appConfig) {
-  const favs = loadFavourites(appConfig)
+function addFavourite(service, favourites, appConfig) {
   const id = typeof service === 'string' ? service : service.id;
-  const favSet = new Set(favs.value);
+  const favSet = new Set(favourites.value);
   if (favSet.has(id)) {
-    return favs;
+    return favourites;
   } else {
     favSet.add(id);
     const favsExport = Array.from(favSet);
-    favs.value = favsExport.slice(0, 6);
-    return favs;
+    favourites.value = favsExport.slice(0, 6);
+    return favourites.value;
   }
 }
 
-function delFavourite(service, appConfig) {
-  const favs = loadFavourites(appConfig)
+function delFavourite(service, favourites, appConfig) {
   const id = typeof service === 'string' ? service : service.id;
-  const favSet = new Set(favs.value)
+  const favSet = new Set(favourites.value)
+
   if (favSet.has(id)) {
+    console.log('trying to delete')
     favSet.delete(id);
     const favsExport = Array.from(favSet);
-    favs.value = favsExport;
-    return favs
+    console.log('got a new list');
+    favourites.value = favsExport;
+    console.log(favourites.value)
+    return favourites.value;
   } else {
-    return favs;
+    return favourites.value;
   }
 }
 

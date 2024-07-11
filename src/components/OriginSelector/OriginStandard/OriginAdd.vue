@@ -8,17 +8,21 @@ import MiniSearch from 'minisearch'
 
 const appConfig = inject('appConfig');
 
-const props = defineProps(['request', 'destination', 'servicesData'])
+const props = defineProps(['request', 'destination'])
 
 const miniSearch = new MiniSearch({
   fields: ['name', 'desc', 'kw', 'desc', 'dom'], // fields to index for full-text search
   storeFields: ['id', 'info', 'name', 'logo'] // fields to return with search results
 })
 
+const servicesData = inject('servicesData')
+
 // Index all documents
-miniSearch.addAll(props.servicesData.values())
+miniSearch.addAll(servicesData.values())
 
 const searchInput = ref("");
+
+const favourites = inject('favouriteIDs')
 
 const searchResults = computed(() => {
   if (searchInput.value.length > 2) {
@@ -41,7 +45,7 @@ const searchResults = computed(() => {
     <div class="card-body">
 
       <div class="mb-3">
-        <div class="form-label">Search</div>
+        <!--<div class="form-label">Search</div>-->
         <input type="text" autocomplete="organization url email" class="form-control"
                v-model="searchInput" placeholder="Your institution">
       </div>
@@ -62,6 +66,7 @@ const searchResults = computed(() => {
           :request="props.request"
           :destination="props.destination"
           :key="service.id"
+          :favourites="favourites"
           :expertMode="expertMode"
         />
 

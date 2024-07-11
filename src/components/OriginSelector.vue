@@ -10,7 +10,7 @@ import * as destinations from '../utils/destinations.js'
 
 import { computed, ref } from 'vue'
 import { useStorage } from '@vueuse/core'
-import { inject } from 'vue'
+import { inject, provide } from 'vue'
 import * as originsStrategy from '@/utils/origins.js'
 import * as favouriteStore from '@/utils/favourites.js'
 
@@ -28,27 +28,19 @@ discoDestination.value = destination
 const origins = originsStrategy.is(appConfig.df_provider_type)
 const servicesData = await origins.listServices(appConfig)
 
-console.log('A')
-
-const favouriteIDs = favouriteStore.loadFavourites()
-
-console.log('B')
+const favouriteIDs = ref(favouriteStore.loadFavourites());
 
 
-const hasFavourites = favouriteIDs.value.length > 0
 
-console.log('C')
+const hasFavourites = favouriteIDs.value.length > 0;
+
 
 
 const favouriteServices = favouriteIDs.value.map((id) => servicesData.get(id));
 
-console.log('D')
-
-
-console.log(favouriteServices.value);
-
-console.log('E')
-
+provide('servicesData', servicesData);
+provide('favouriteIDs', favouriteIDs);
+provide('favouriteServices', favouriteServices);
 
 </script>
 
@@ -69,23 +61,20 @@ console.log('E')
               <!-- Content of card #1 -->
               <div id="tab-bottom-1" class="card tab-pane active show" role="tabpanel">
                 <KeepAlive>
-                  <OriginFavourites v-if="!!hasFavourites" :request="props.request" :destination="destination"
-                                    :favouriteServices="favouriteServices" />
-                  <OriginSuggestions v-else :request="props.request"
-                                     :destination="destination" :servicesData="servicesData" />
-
+                  <OriginFavourites v-if="!!hasFavourites" :request="props.request" :destination="destination" />
+                  <OriginSuggestions v-else :request="props.request" :destination="destination"  />
                 </KeepAlive>
               </div>
               <!-- Content of card #2 -->
               <div id="tab-bottom-2" class="card tab-pane" role="tabpanel">
                 <KeepAlive>
-                  <OriginAdd :request="props.request" :destination="destination" :servicesData="servicesData" />
+                  <OriginAdd :request="props.request" :destination="destination"  />
                 </KeepAlive>
               </div>
               <!-- Content of card #3 -->
               <div id="tab-bottom-3" class="card tab-pane" role="tabpanel">
                 <KeepAlive>
-                  <OriginEdit :request="props.request" :destination="destination"  :favouriteServices="favouriteServices" />
+                  <OriginEdit :request="props.request" :destination="destination"  />
                 </KeepAlive>
               </div>
 

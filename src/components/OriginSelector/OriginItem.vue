@@ -2,25 +2,26 @@
 
 import EntityLogo from '@/components/icons/EntityLogo.vue'
 import * as redirector from '@/utils/redirector.js'
-import * as filters from '@/utils/service_filter.js'
 import * as favouriteStore from '@/utils/favourites.js'
 
-import { inject } from 'vue'
-import { useStorage } from '@vueuse/core'
-import { addFavourite } from '@/utils/favourites.js'
+import { inject, provide, reactive } from 'vue'
 
-const props = defineProps(['service', 'request', 'destination', 'expertMode', 'itemMode'])
+const props = defineProps(['service', 'request', 'destination', 'expertMode', 'itemMode', 'favouriteServices'])
 const service = props.service
 const appConfig = inject('appConfig')
 const returnURL = props.itemMode === 'edit' ? '#' : redirector.buildReturnURL(props.service, props.request, props.destination, appConfig)
 
+
+const favourites = inject('favouriteIDs');
+
+
 function favourite(service, mode = 'open') {
   if (mode === 'edit') {
-    console.log('EDIT START!')
-    return favouriteStore.delFavourite(service, appConfig)
+    favourites.value = favouriteStore.delFavourite(service, favourites, appConfig);
   } else {
-    return favouriteStore.addFavourite(service, appConfig)
+    favourites.value = favouriteStore.addFavourite(service, favourites, appConfig)
   }
+  return true;
 }
 
 </script>

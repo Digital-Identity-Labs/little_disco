@@ -12,7 +12,7 @@ import * as geoLocation from '@/utils/geolocation.js'
 import * as originsStrategy from '@/utils/origins.js'
 import * as netStrategy from '@/utils/network.js'
 
-const props = defineProps(['request', 'destination', 'servicesData'])
+const props = defineProps(['request', 'destination'])
 
 const appConfig = inject('appConfig')
 const expertMode = inject('expertMode')
@@ -24,7 +24,9 @@ const geo = await geoLocation.getLocation(appConfig);
 const netService = netStrategy.is(appConfig.net_provider_type)
 const ipAddress = await netService.getIPAddress(appConfig)
 
-const suggestedServices = suggestionEngine.initialSuggestionList(props.servicesData, { ip: ipAddress, geo: geo}, appConfig)
+const servicesData = inject('servicesData')
+
+const suggestedServices = suggestionEngine.initialSuggestionList(servicesData, { ip: ipAddress, geo: geo}, appConfig)
 
 </script>
 
