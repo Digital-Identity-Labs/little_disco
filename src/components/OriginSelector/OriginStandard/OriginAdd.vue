@@ -5,6 +5,7 @@ import { inject, ref } from 'vue'
 import { reactive, computed } from 'vue'
 import OriginItem from '@/components/OriginSelector/OriginItem.vue'
 import MiniSearch from 'minisearch'
+import { useFavouriteOriginIDsStore } from '@/stores/favourite_origin_ids.js'
 
 const appConfig = inject('appConfig');
 
@@ -22,7 +23,7 @@ miniSearch.addAll(servicesData.values())
 
 const searchInput = ref("");
 
-const favourites = inject('favouriteIDs')
+const favStore = useFavouriteOriginIDsStore()
 
 const searchResults = computed(() => {
   if (searchInput.value.length > 2) {

@@ -6,14 +6,19 @@ import { reactive, computed } from 'vue'
 import OriginItem from '@/components/OriginSelector/OriginItem.vue'
 import * as filters from '@/utils/service_filter.js'
 import { useStorage } from '@vueuse/core'
+import { useFavouriteOriginIDsStore } from '@/stores/favourite_origin_ids.js'
 
 const props = defineProps(['request', 'destination'])
 
 const appConfig = inject('appConfig')
 const expertMode = inject('expertMode')
 const em = reactive(expertMode.value)
-const favourites = inject('favouriteIDs')
-const favouriteServices = inject('favouriteServices')
+
+const favStore = useFavouriteOriginIDsStore()
+
+const servicesData = inject('servicesData')
+
+const favouriteServices = computed( () => favStore.favouriteIDs.map((id) => servicesData.get(id)))
 
 </script>
 
@@ -31,7 +36,6 @@ const favouriteServices = inject('favouriteServices')
       :request="props.request"
       :destination="props.destination"
       :key="service.id"
-      :favourites="favourites"
       :expertMode="expertMode"
     />
 

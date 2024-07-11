@@ -5,23 +5,23 @@ import * as redirector from '@/utils/redirector.js'
 import * as favouriteStore from '@/utils/favourites.js'
 
 import { inject, provide, reactive } from 'vue'
+import { useFavouriteOriginIDsStore } from '@/stores/favourite_origin_ids.js'
 
 const props = defineProps(['service', 'request', 'destination', 'expertMode', 'itemMode', 'favouriteServices'])
 const service = props.service
 const appConfig = inject('appConfig')
 const returnURL = props.itemMode === 'edit' ? '#' : redirector.buildReturnURL(props.service, props.request, props.destination, appConfig)
 
-
-const favourites = inject('favouriteIDs');
-
+const favStore = useFavouriteOriginIDsStore()
 
 function favourite(service, mode = 'open') {
   if (mode === 'edit') {
-    favourites.value = favouriteStore.delFavourite(service, favourites, appConfig);
+    console.log('Should be deleting')
+    favStore.delID(service)
   } else {
-    favourites.value = favouriteStore.addFavourite(service, favourites, appConfig)
+    console.log('Should be adding')
+    favStore.addID(service)
   }
-  return true;
 }
 
 </script>

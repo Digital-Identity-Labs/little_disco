@@ -6,13 +6,15 @@ import OriginSuggestions from '@/components/OriginSelector/OriginStandard/Origin
 
 import OriginSimpleList from '@/components/OriginSelector/OriginSimple/OriginList.vue'
 
+import { useFavouriteOriginIDsStore } from '@/stores/favourite_origin_ids.js'
+
+
 import * as destinations from '../utils/destinations.js'
 
 import { computed, ref } from 'vue'
 import { useStorage } from '@vueuse/core'
 import { inject, provide } from 'vue'
 import * as originsStrategy from '@/utils/origins.js'
-import * as favouriteStore from '@/utils/favourites.js'
 
 const props = defineProps(['request'])
 
@@ -28,19 +30,17 @@ discoDestination.value = destination
 const origins = originsStrategy.is(appConfig.df_provider_type)
 const servicesData = await origins.listServices(appConfig)
 
-const favouriteIDs = ref(favouriteStore.loadFavourites());
+const favStore = useFavouriteOriginIDsStore()
+console.log('BOOOOOp')
+console.log(favStore.hasFavourites)
+console.log(favStore.favouriteIDs)
 
 
 
-const hasFavourites = favouriteIDs.value.length > 0;
-
-
-
-const favouriteServices = favouriteIDs.value.map((id) => servicesData.get(id));
 
 provide('servicesData', servicesData);
-provide('favouriteIDs', favouriteIDs);
-provide('favouriteServices', favouriteServices);
+
+
 
 </script>
 
@@ -61,7 +61,7 @@ provide('favouriteServices', favouriteServices);
               <!-- Content of card #1 -->
               <div id="tab-bottom-1" class="card tab-pane active show" role="tabpanel">
                 <KeepAlive>
-                  <OriginFavourites v-if="!!hasFavourites" :request="props.request" :destination="destination" />
+                  <OriginFavourites v-if="favStore.hasFavourites" :request="props.request" :destination="destination" />
                   <OriginSuggestions v-else :request="props.request" :destination="destination"  />
                 </KeepAlive>
               </div>
@@ -83,13 +83,13 @@ provide('favouriteServices', favouriteServices);
             <ul class="nav nav-tabs nav-tabs-bottom" role="tablist">
               <li class="nav-item" role="presentation"><a href="#tab-bottom-1" class="nav-link active"
                                                           data-bs-toggle="tab" aria-selected="true" role="tab">
-                <span v-if="hasFavourites">Favourites</span><span v-else>Suggestions</span></a>
+                <span v-if="favStore.hasFavourites === true">Favourites</span><span v-else>Suggestions</span></a>
               </li>
               <li class="nav-item" role="presentation"><a href="#tab-bottom-2" class="nav-link" data-bs-toggle="tab"
                                                           aria-selected="false" tabindex="-1" role="tab">Find & Add</a>
               </li>
               <li class="nav-item" role="presentation"><a href="#tab-bottom-3" class="nav-link" data-bs-toggle="tab"
-                                                          aria-selected="false" tabindex="-1" role="tab">Edit</a></li>
+                                                          aria-selected="false" tabindex="-1" role="tab">Remove</a></li>
             </ul>
           </div>
 
