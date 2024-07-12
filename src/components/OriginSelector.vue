@@ -107,6 +107,10 @@ provide('servicesData', servicesData);
 
 <style scoped>
 
+.tab-content {
+  min-height: 600px;
+}
+
 .consistent-height .tab-content {
   display: flex;
 }
