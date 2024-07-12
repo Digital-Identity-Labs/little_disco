@@ -60,7 +60,6 @@ function toSearch() {
       :request="props.request"
       :destination="props.destination"
       :key="service.id"
-      :expertMode="expertMode"
     />
 
   </div>

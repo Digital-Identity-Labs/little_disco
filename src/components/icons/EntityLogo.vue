@@ -11,8 +11,6 @@ const style = logo.style(props.size);
 const defaultImageURL = appConfig.default_image_url;
 const serviceURL = service.logo || service.logo_url;
 
-console.log(service)
-
 function errorImage(e) {
   e.target.src = defaultImageURL;
 }
