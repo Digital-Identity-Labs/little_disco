@@ -79,19 +79,19 @@ provide('servicesData', servicesData);
             </div>
             <!-- Cards navigation -->
             <ul class="nav nav-tabs nav-tabs-bottom" role="tablist">
-              <li class="nav-item" role="presentation"><a href="#tab-bottom-1" class="nav-link active"
+              <li class="nav-item" role="presentation"><a id="tl1" href="#tab-bottom-1" class="nav-link active"
                                                           data-bs-toggle="tab" aria-selected="true" role="tab">
                 <span v-if="favStore.hasFavourites === true"><IconFavourites/>&nbsp;Favourites</span><span v-else><IconSuggest/>&nbsp;Suggestions</span></a>
               </li>
-              <li class="nav-item" role="presentation"><a href="#tab-bottom-2" class="nav-link" data-bs-toggle="tab"
+              <li class="nav-item" role="presentation"><a id="tl2" href="#tab-bottom-2" class="nav-link" data-bs-toggle="tab"
                                                           aria-selected="false" tabindex="-1" role="tab">
                 <IconAdd/>&nbsp;Find
               </a>
               </li>
               <li class="nav-item" role="presentation">
-                <a v-if="favStore.hasFavourites" href="#tab-bottom-3" class="nav-link" data-bs-toggle="tab"
+                <a id="tl3" v-if="favStore.hasFavourites" href="#tab-bottom-3" class="nav-link" data-bs-toggle="tab"
                    aria-selected="false" tabindex="-1" role="tab"> <IconDelete/>&nbsp;Remove</a>
-              <a v-else href="#tab-bottom-3" class="nav-link disabled" data-bs-toggle="tab"
+              <a id="tl3" v-else href="#tab-bottom-3" class="nav-link disabled" data-bs-toggle="tab"
                  aria-selected="false" tabindex="-1" role="tab"><IconDeleteDisabled/>&nbsp;Remove</a>
               </li>
             </ul>

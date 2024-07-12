@@ -39,7 +39,7 @@ const searchResults = computed(() => {
 <template>
 
   <div class="card-header">
-    <h3 class="card-title">Search &amp; Add</h3>
+    <h3 class="card-title">Find</h3>
   </div>
   <div class="list-group list-group-flush list-group-hoverable">
 
