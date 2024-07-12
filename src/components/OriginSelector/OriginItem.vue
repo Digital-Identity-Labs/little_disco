@@ -8,10 +8,10 @@ import { inject, provide, reactive } from 'vue'
 import { useFavouriteOriginIDsStore } from '@/stores/favourite_origin_ids.js'
 import { useExpertModeStore } from '@/stores/expert_mode.js'
 
-const props = defineProps(['service', 'request', 'destination', 'expertMode', 'itemMode', 'favouriteServices'])
+const props = defineProps(['service', 'request', 'destination', 'mode'])
 const service = props.service
 const appConfig = inject('appConfig')
-const returnURL = props.itemMode === 'edit' ? '#' : redirector.buildReturnURL(props.service, props.request, props.destination, appConfig)
+const returnURL = props.mode === 'edit' ? '#' : redirector.buildReturnURL(props.service, props.request, props.destination, appConfig)
 
 const favStore = useFavouriteOriginIDsStore()
 const emStore = useExpertModeStore()
@@ -32,7 +32,7 @@ function favourite(service, mode = 'open') {
 
   <transition>
     <div class="list-group-item" v-if="emStore.isEnabled || !!(service.hide) === false">
-      <a class="no-underline" @click="favourite(service, itemMode)" :href="returnURL">
+      <a class="no-underline" @click="favourite(service, props.mode)" :href="returnURL">
         <div class="row align-items-center">
           <div class="col-auto">
             <EntityLogo :service="props.service" :config="appConfig" />
@@ -44,7 +44,7 @@ function favourite(service, mode = 'open') {
           </div>
           <div class="col-auto">
           <span href="#" class="list-group-item-actions"><!-- Download SVG icon from http://tabler-icons.io/i/star -->
-<svg v-if="props.itemMode === 'edit'" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+<svg v-if="props.mode === 'edit'" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
      fill="currentColor"
      class="icon icon-tabler icons-tabler-filled icon-tabler-trash-x"><path stroke="none" d="M0 0h24v24H0z"
                                                                             fill="none" /><path

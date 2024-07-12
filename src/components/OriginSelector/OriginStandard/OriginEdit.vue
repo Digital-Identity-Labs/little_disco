@@ -32,7 +32,7 @@ const favouriteServices = computed( () => favStore.favouriteIDs.map((id) => serv
       :request="props.request"
       :destination="props.destination"
       :key="service.id"
-      item-mode="edit"
+      mode="edit"
     />
 
   </div>
