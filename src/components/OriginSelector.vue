@@ -6,6 +6,12 @@ import OriginSuggestions from '@/components/OriginSelector/OriginStandard/Origin
 
 import OriginSimpleList from '@/components/OriginSelector/OriginSimple/OriginList.vue'
 
+import IconDelete from '@/components/icons/IconDelete.vue'
+import IconDeleteDisabled from '@/components/icons/IconDeleteDisabled.vue'
+import IconAdd from '@/components/icons/IconAdd.vue'
+import IconFavourites from '@/components/icons/IconFavourites.vue'
+import IconSuggest from '@/components/icons/IconSuggest.vue'
+
 import { useFavouriteOriginIDsStore } from '@/stores/favourite_origin_ids.js'
 
 
@@ -75,13 +81,19 @@ provide('servicesData', servicesData);
             <ul class="nav nav-tabs nav-tabs-bottom" role="tablist">
               <li class="nav-item" role="presentation"><a href="#tab-bottom-1" class="nav-link active"
                                                           data-bs-toggle="tab" aria-selected="true" role="tab">
-                <span v-if="favStore.hasFavourites === true">Favourites</span><span v-else>Suggestions</span></a>
+                <span v-if="favStore.hasFavourites === true"><IconFavourites/>&nbsp;Favourites</span><span v-else><IconSuggest/>&nbsp;Suggestions</span></a>
               </li>
               <li class="nav-item" role="presentation"><a href="#tab-bottom-2" class="nav-link" data-bs-toggle="tab"
-                                                          aria-selected="false" tabindex="-1" role="tab">Find & Add</a>
+                                                          aria-selected="false" tabindex="-1" role="tab">
+                <IconAdd/>&nbsp;Find
+              </a>
               </li>
-              <li class="nav-item" role="presentation"><a href="#tab-bottom-3" class="nav-link" data-bs-toggle="tab"
-                                                          aria-selected="false" tabindex="-1" role="tab">Remove</a></li>
+              <li class="nav-item" role="presentation">
+                <a v-if="favStore.hasFavourites" href="#tab-bottom-3" class="nav-link" data-bs-toggle="tab"
+                   aria-selected="false" tabindex="-1" role="tab"> <IconDelete/>&nbsp;Remove</a>
+              <a v-else href="#tab-bottom-3" class="nav-link disabled" data-bs-toggle="tab"
+                 aria-selected="false" tabindex="-1" role="tab"><IconDeleteDisabled/>&nbsp;Remove</a>
+              </li>
             </ul>
           </div>
 
