@@ -6,6 +6,7 @@ import { reactive, computed } from 'vue'
 import OriginItem from '@/components/OriginSelector/OriginItem.vue'
 import MiniSearch from 'minisearch'
 import { useFavouriteOriginIDsStore } from '@/stores/favourite_origin_ids.js'
+import { useSearchOptionsStore } from '@/stores/search_options.js'
 
 const appConfig = inject('appConfig');
 
@@ -23,7 +24,7 @@ miniSearch.addAll(servicesData.values())
 
 const searchInput = ref("");
 
-const favStore = useFavouriteOriginIDsStore()
+const searchOptionsStore = useSearchOptionsStore()
 
 const searchResults = computed(() => {
   if (searchInput.value.length > 2) {
@@ -48,15 +49,17 @@ const searchResults = computed(() => {
       <div class="mb-3">
         <!--<div class="form-label">Search</div>-->
         <input type="text" autocomplete="organization url email" class="form-control"
-               v-model="searchInput" placeholder="Your institution">
+               v-model="searchInput" placeholder="Your institution's name or your email address">
       </div>
 
       <div class="mb-3">
         <!--<div class="form-label">Single switch</div>-->
-        <label class="form-check form-switch">
-          <input class="form-check-input" type="checkbox">
-          <span class="form-check-label">Remember as a favourite</span>
-        </label>
+        <div v-if="appConfig.show_settings" class="mb-3">
+          <label class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" v-model="searchOptionsStore.remember" :value="1">
+            <span class="form-check-label">Remember as a favourite</span>
+          </label>
+        </div>
       </div>
 
       <div class="list-group list-group-flush list-group-hoverable">
@@ -67,8 +70,6 @@ const searchResults = computed(() => {
           :request="props.request"
           :destination="props.destination"
           :key="service.id"
-          :favourites="favourites"
-          :expertMode="expertMode"
         />
 
       </div>
