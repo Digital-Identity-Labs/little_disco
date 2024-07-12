@@ -8,7 +8,7 @@ import MiniSearch from 'minisearch'
 import { useFavouriteOriginIDsStore } from '@/stores/favourite_origin_ids.js'
 import { useSearchOptionsStore } from '@/stores/search_options.js'
 
-const appConfig = inject('appConfig');
+const appConfig = inject('appConfig')
 
 const props = defineProps(['request', 'destination'])
 
@@ -22,16 +22,16 @@ const servicesData = inject('servicesData')
 // Index all documents
 miniSearch.addAll(servicesData.values())
 
-const searchInput = ref("");
+const searchInput = ref('')
 
 const searchOptionsStore = useSearchOptionsStore()
 
 const searchResults = computed(() => {
   if (searchInput.value.length > 2) {
-    const text = searchInput.value.includes('@') ? searchInput.value.split('@')[1] : searchInput.value;
-    return miniSearch.search(text, { prefix: true, fuzzy: 0.2 });
+    const text = searchInput.value.includes('@') ? searchInput.value.split('@')[1] : searchInput.value
+    return miniSearch.search(text, { prefix: true, fuzzy: 0.2 })
   } else {
-    return [];
+    return []
   }
 })
 
@@ -48,8 +48,18 @@ const searchResults = computed(() => {
 
       <div class="mb-3">
         <!--<div class="form-label">Search</div>-->
-        <input type="text" autocomplete="organization url email" class="form-control"
-               v-model="searchInput" placeholder="Your institution's name or your email address">
+        <div class="input-icon mb-3">
+          <input type="text" autocomplete="organization url email" class="form-control"
+                 v-model="searchInput" placeholder="Your institution's name or your email address">
+          <span class="input-icon-addon">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                       fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                       stroke-linejoin="round" class="icon"><path stroke="none" d="M0 0h24v24H0z"
+                                                                                  fill="none"></path><path
+                                    d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path><path d="M21 21l-6 -6"></path></svg>
+                                </span>
+        </div>
+
       </div>
 
       <div class="mb-3">

@@ -1,14 +1,13 @@
 <script setup>
-
-
-import { inject, ref } from 'vue'
+import { inject, ref, watch } from 'vue'
 import { reactive, computed } from 'vue'
 import OriginItem from '@/components/OriginSelector/OriginItem.vue'
 import { useFavouriteOriginIDsStore } from '@/stores/favourite_origin_ids.js'
 import IconDelete from '@/components/icons/IconDelete.vue'
+import router from '@/router/index.js'
 const props = defineProps(['request', 'destination'])
 
-const appConfig = inject('appConfig')
+//const appConfig = inject('appConfig')
 
 const favStore = useFavouriteOriginIDsStore()
 
@@ -16,6 +15,11 @@ const servicesData = inject('servicesData')
 
 const favouriteServices = computed( () => favStore.favouriteIDs.map((id) => servicesData.get(id)))
 
+watch(favouriteServices, (newFavouriteServices) => {
+  if (newFavouriteServices.length === 0) {
+    router.go();
+  }
+})
 
 function reset() {
     favStore.$reset();
@@ -43,10 +47,8 @@ function reset() {
 
   <div class="card-footer">
     <div class="d-flex">
-
       <a @click="reset()" href="#" class="btn btn-danger ms-auto"><IconDelete/> Remove all</a>
     </div>
   </div>
-
 
 </template>
