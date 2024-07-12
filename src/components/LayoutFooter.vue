@@ -1,8 +1,11 @@
 <script setup>
 import { inject, shallowRef, ref } from 'vue'
+import { useFavouriteOriginIDsStore } from '@/stores/favourite_origin_ids.js'
+import { useExpertModeStore } from '@/stores/expert_mode.js'
 
 const appConfig = inject('appConfig');
-const expertMode = inject('expertMode');
+
+const emStore = useExpertModeStore()
 
 </script>
 
@@ -14,7 +17,7 @@ const expertMode = inject('expertMode');
           <div v-if="appConfig.show_settings" class="mb-3">
             <div class="form-label">Settings</div>
             <label class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" v-model="expertMode" :value="true">
+              <input class="form-check-input" type="checkbox" v-model="emStore.expertMode" :value="1">
               <span class="form-check-label">Expert Mode</span>
             </label>
           </div>

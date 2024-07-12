@@ -12,7 +12,6 @@ const queryParams = route.query
 import * as discoRequest from '@/utils/disco_request.js'
 
 const appConfig = inject('appConfig');
-const expertMode = inject('expertMode');
 
 const request = discoRequest.parseRequest(queryParams, {})
 

@@ -4,14 +4,14 @@ import EntityLogo from '@/components/icons/EntityLogo.vue'
 const props = defineProps(['service'])
 import { inject } from 'vue'
 import * as redirector from '@/utils/redirector.js'
-
-//const appConfig = inject('appConfig')
-const expertMode = inject('expertMode')
+import { useExpertModeStore } from '@/stores/expert_mode.js'
 
 const service = props.service
 
 const defaultInitiator = redirector.buildInitiatorURL(service);
 const expertInitiators = redirector.buildDefaultInitiatorURLs(service);
+
+const emStore = useExpertModeStore()
 
 </script>
 
@@ -19,7 +19,7 @@ const expertInitiators = redirector.buildDefaultInitiatorURLs(service);
 
   <template v-if="service.login_url">
 
-    <a v-if="expertMode === true" :href="service.login_url">
+    <a v-if="emStore.isEnabled" :href="service.login_url">
       <div class="btn-group">
         <button type="button" class="btn btn-danger"><span class="d-md-none d-lg-block">Access&nbsp;</span> >></button>
         <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"

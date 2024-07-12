@@ -6,6 +6,7 @@ import * as favouriteStore from '@/utils/favourites.js'
 
 import { inject, provide, reactive } from 'vue'
 import { useFavouriteOriginIDsStore } from '@/stores/favourite_origin_ids.js'
+import { useExpertModeStore } from '@/stores/expert_mode.js'
 
 const props = defineProps(['service', 'request', 'destination', 'expertMode', 'itemMode', 'favouriteServices'])
 const service = props.service
@@ -13,6 +14,7 @@ const appConfig = inject('appConfig')
 const returnURL = props.itemMode === 'edit' ? '#' : redirector.buildReturnURL(props.service, props.request, props.destination, appConfig)
 
 const favStore = useFavouriteOriginIDsStore()
+const emStore = useExpertModeStore()
 
 function favourite(service, mode = 'open') {
   if (mode === 'edit') {
@@ -29,7 +31,7 @@ function favourite(service, mode = 'open') {
 <template>
 
   <transition>
-    <div class="list-group-item" v-if="expertMode === true || !!(service.hide) === false">
+    <div class="list-group-item" v-if="emStore.isEnabled || !!(service.hide) === false">
       <a class="no-underline" @click="favourite(service, itemMode)" :href="returnURL">
         <div class="row align-items-center">
           <div class="col-auto">

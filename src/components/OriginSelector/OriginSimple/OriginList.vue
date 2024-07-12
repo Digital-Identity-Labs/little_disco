@@ -9,8 +9,6 @@ import * as filters from '@/utils/service_filter.js'
 const props = defineProps(['request', 'destination', 'servicesData']);
 
 const appConfig = inject('appConfig');
-const expertMode = inject('expertMode');
-const em = reactive(expertMode.value);
 
 
 
@@ -33,7 +31,6 @@ const em = reactive(expertMode.value);
               :request="props.request"
               :destination="props.destination"
               :key="service.id"
-              :expertMode="expertMode"
             />
 
           </div>

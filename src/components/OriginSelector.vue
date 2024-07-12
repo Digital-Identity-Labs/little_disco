@@ -20,8 +20,6 @@ const props = defineProps(['request'])
 
 const appConfig = inject('appConfig')
 const discoDestination = inject('discoDestination')
-const expertMode = inject('expertMode')
-
 
 const destination = destinations.lookupService(props.request.entityID, appConfig)
 

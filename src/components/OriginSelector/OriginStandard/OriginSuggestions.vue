@@ -15,8 +15,6 @@ import * as netStrategy from '@/utils/network.js'
 const props = defineProps(['request', 'destination'])
 
 const appConfig = inject('appConfig')
-const expertMode = inject('expertMode')
-const em = reactive(expertMode.value)
 
 //const servicesData =  [];
 const geo = await geoLocation.getLocation(appConfig);

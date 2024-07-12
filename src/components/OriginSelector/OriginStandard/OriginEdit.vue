@@ -9,8 +9,6 @@ import { useFavouriteOriginIDsStore } from '@/stores/favourite_origin_ids.js'
 const props = defineProps(['request', 'destination'])
 
 const appConfig = inject('appConfig')
-const expertMode = inject('expertMode')
-const em = reactive(expertMode.value)
 
 const favStore = useFavouriteOriginIDsStore()
 
@@ -34,7 +32,6 @@ const favouriteServices = computed( () => favStore.favouriteIDs.map((id) => serv
       :request="props.request"
       :destination="props.destination"
       :key="service.id"
-      :expertMode="em"
       item-mode="edit"
     />
 
