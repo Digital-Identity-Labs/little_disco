@@ -14,7 +14,7 @@ const props = defineProps(['request', 'destination'])
 
 const miniSearch = new MiniSearch({
   fields: ['name', 'desc', 'kw', 'desc', 'dom'], // fields to index for full-text search
-  storeFields: ['id', 'info', 'name', 'logo'] // fields to return with search results
+  storeFields: ['id', 'info', 'name', 'logo', 'hide'] // fields to return with search results
 })
 
 const servicesData = inject('servicesData')
@@ -29,7 +29,9 @@ const searchOptionsStore = useSearchOptionsStore()
 const searchResults = computed(() => {
   if (searchInput.value.length > 2) {
     const text = searchInput.value.includes('@') ? searchInput.value.split('@')[1] : searchInput.value
-    return miniSearch.search(text, { prefix: true, fuzzy: 0.2 })
+    const results = miniSearch.search(text, { prefix: true, boost: {name: 2}, fuzzy: appConfig.fuzzy_search });
+    const count = results.length
+    return results.slice(0, appConfig.max_results);
   } else {
     return []
   }

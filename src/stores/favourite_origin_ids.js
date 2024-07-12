@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia'
 import { inject, ref, computed } from 'vue'
 
+const appConfig = inject('appConfig')
+
 export const useFavouriteOriginIDsStore = defineStore('favouriteOriginIDs', () => {
 
   const favouriteIDs = ref([])
@@ -14,7 +16,7 @@ export const useFavouriteOriginIDsStore = defineStore('favouriteOriginIDs', () =
     if (!favSet.has(id)) {
       favSet.add(id)
       const favsExport = Array.from(favSet)
-      favouriteIDs.value = favsExport.slice(0, 6)
+      favouriteIDs.value = favsExport.slice(0, appConfig.max_results)
     }
   }
 

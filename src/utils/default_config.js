@@ -14,6 +14,9 @@ const app_defaults = {
   plausible_domain: null,
   request_geo: true,
   geo_distance: 50000,
+  fuzzy_search: 0.0,
+  max_results: 6,
+  max_favourites: 6,
   destinations: [
     {
       id: 'https://sho.digitalidentitylabs.com/shibboleth',
