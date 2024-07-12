@@ -29,12 +29,6 @@ const origins = originsStrategy.is(appConfig.df_provider_type)
 const servicesData = await origins.listServices(appConfig)
 
 const favStore = useFavouriteOriginIDsStore()
-console.log('BOOOOOp')
-console.log(favStore.hasFavourites)
-console.log(favStore.favouriteIDs)
-
-
-
 
 provide('servicesData', servicesData);
 

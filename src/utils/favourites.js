@@ -27,12 +27,9 @@ function delFavourite(service, favourites, appConfig) {
   const favSet = new Set(favourites.value)
 
   if (favSet.has(id)) {
-    console.log('trying to delete')
     favSet.delete(id);
     const favsExport = Array.from(favSet);
-    console.log('got a new list');
     favourites.value = favsExport;
-    console.log(favourites.value)
     return favourites.value;
   } else {
     return favourites.value;

@@ -18,10 +18,8 @@ const emStore = useExpertModeStore()
 
 function favourite(service, mode = 'open') {
   if (mode === 'edit') {
-    console.log('Should be deleting')
     favStore.delID(service)
   } else {
-    console.log('Should be adding')
     favStore.addID(service)
   }
 }
