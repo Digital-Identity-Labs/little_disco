@@ -24,13 +24,13 @@ miniSearch.addAll(servicesData.values())
 
 const searchInput = ref('')
 
-const searchOptionsStore = useSearchOptionsStore()
+const searchOptionsStore = useSearchOptionsStore();
 
 const searchResults = computed(() => {
   if (searchInput.value.length > 2) {
     const text = searchInput.value.includes('@') ? searchInput.value.split('@')[1] : searchInput.value
     const results = miniSearch.search(text, { prefix: true, boost: {name: 2}, fuzzy: appConfig.fuzzy_search });
-    const count = results.length
+    //const count = results.length;
     return results.slice(0, appConfig.max_results);
   } else {
     return []
@@ -51,7 +51,7 @@ const searchResults = computed(() => {
       <div class="mb-3">
         <!--<div class="form-label">Search</div>-->
         <div class="input-icon mb-3">
-          <input type="text" autocomplete="organization url email" class="form-control"
+          <input id="searchTextInput" type="text" autocomplete="organization url email" class="form-control"
                  v-model="searchInput" placeholder="Your institution's name or your email address">
           <span class="input-icon-addon">
                                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -82,6 +82,7 @@ const searchResults = computed(() => {
           :request="props.request"
           :destination="props.destination"
           :key="service.id"
+          :remember="searchOptionsStore.rememberIsEnabled"
         />
 
       </div>

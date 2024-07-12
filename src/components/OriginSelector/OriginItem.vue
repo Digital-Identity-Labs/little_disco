@@ -11,7 +11,31 @@ import { inject, provide, reactive } from 'vue'
 import { useFavouriteOriginIDsStore } from '@/stores/favourite_origin_ids.js'
 import { useExpertModeStore } from '@/stores/expert_mode.js'
 
-const props = defineProps(['service', 'request', 'destination', 'mode'])
+//const props = defineProps(['service', 'request', 'destination', 'mode', 'remember'])
+const props = defineProps({
+  service: {
+    type: Object,
+    required: true
+  },
+  request: {
+    type: Object,
+    required: true
+  },
+  destination: {
+    type: Object,
+    required: true
+  },
+  mode: {
+    type: String,
+    required: false,
+    default: 'open'
+  },
+  remember: {
+    type: Boolean,
+    required: false,
+    default: true
+  }
+})
 const service = props.service
 const appConfig = inject('appConfig')
 const returnURL = props.mode === 'edit' ? '#' : redirector.buildReturnURL(props.service, props.request, props.destination, appConfig)
@@ -22,7 +46,7 @@ const emStore = useExpertModeStore()
 function favourite(service, mode = 'open') {
   if (mode === 'edit') {
     favStore.delID(service)
-  } else {
+  } else if (props.remember) {
     favStore.addID(service)
   }
 }
