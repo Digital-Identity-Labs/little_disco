@@ -64,7 +64,7 @@ function toSearch() {
 
   </div>
 
-  <div class="card-footer">
+  <div class="card-footer position-absolute bottom-0 end-0">
     <div class="d-flex">
       <a @click="toSearch()"  class="btn btn-primary ms-auto" ><IconSearch/>&nbsp;Search for your institution</a>
     </div>

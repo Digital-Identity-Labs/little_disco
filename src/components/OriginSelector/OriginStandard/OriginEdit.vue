@@ -45,7 +45,7 @@ function reset() {
 
   </div>
 
-  <div class="card-footer">
+  <div class="card-footer position-absolute bottom-0 end-0">
     <div class="d-flex">
       <a @click="reset()" href="#" class="btn btn-danger ms-auto"><IconDelete/> Remove all</a>
     </div>
