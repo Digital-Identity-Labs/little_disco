@@ -24,7 +24,7 @@ const discoDestination = inject('discoDestination');
         <div v-if="discoDestination" class="nav-item">
 
           <a  class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="offcanvas" href="#offcanvasTop" aria-label="Show destination">
-            <EntityLogo :service="discoDestination" :config="appConfig" size="medium"/>
+            <EntityLogo :service="discoDestination" :config="appConfig" size="small"/>
             <div class="d-none d-xl-block ps-2">
               <div>{{discoDestination.name}}</div>
               <div class="small text-secondary">Published by {{discoDestination.org_name}} </div>

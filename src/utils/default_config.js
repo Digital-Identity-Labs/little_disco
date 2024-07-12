@@ -71,7 +71,8 @@ const app_defaults = {
   logo_provider_type: 'none',
   logo_provider_url: null,
   net_provider_type: 'header',
-  net_provider_url: '/'
+  net_provider_url: '/',
+  default_image_url: 'theme/default_logo.png',
 }
 
 
