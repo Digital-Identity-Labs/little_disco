@@ -41,8 +41,12 @@ npm run lint
 ```
 
 
+http://docs.oasis-open.org/security/saml/v2.0/saml-profiles-2.0-os.pdf
+
 Icon by:
 https://thenounproject.com/creator/blaisetsewell/
+
+disco by Blaise Sewell from <a href="https://thenounproject.com/browse/icons/term/disco/" target="_blank" title="disco Icons">Noun Project</a> (CC BY 3.0)
 
 https://service.seamlessaccess.org/ds/?entityID=https%3A%2F%2Ftest.ukfederation.org.uk%2Fentity&return=https%3A%2F%2Ftest.ukfederation.org.uk%2FShibboleth.sso%2FLogin%3FSAMLDS%3D1%26target%3Dss%253Amem%253A1f1ac92d3e714281424ce9d3b92055ef615448a5ad11b960d86367fedab67733
 
