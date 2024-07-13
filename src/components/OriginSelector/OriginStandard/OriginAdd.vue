@@ -8,6 +8,8 @@ import MiniSearch from 'minisearch'
 import { useFavouriteOriginIDsStore } from '@/stores/favourite_origin_ids.js'
 import { useSearchOptionsStore } from '@/stores/search_options.js'
 
+import { useFocus } from '@vueuse/core'
+
 const appConfig = inject('appConfig')
 
 const props = defineProps(['request', 'destination'])
@@ -51,7 +53,7 @@ const searchResults = computed(() => {
       <div class="mb-3">
         <!--<div class="form-label">Search</div>-->
         <div class="input-icon mb-3">
-          <input id="searchTextInput" type="text" autocomplete="organization url email" class="form-control"
+          <input autofocus id="searchTextInput" type="text" autocomplete="organization url email" class="form-control"
                  v-model="searchInput" placeholder="Your institution's name or your email address">
           <span class="input-icon-addon">
                                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
