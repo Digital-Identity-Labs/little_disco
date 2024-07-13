@@ -2,12 +2,11 @@
 
 import EntityLogo from '@/components/icons/EntityLogo.vue'
 import * as redirector from '@/utils/redirector.js'
-import * as favouriteStore from '@/utils/favourites.js'
 
 import IconDelete from '@/components/icons/IconDelete.vue'
 import IconNext from '@/components/icons/IconNext.vue'
 
-import { inject, provide, reactive } from 'vue'
+import { inject } from 'vue'
 import { useFavouriteOriginIDsStore } from '@/stores/favourite_origin_ids.js'
 import { useExpertModeStore } from '@/stores/expert_mode.js'
 
@@ -36,12 +35,12 @@ const props = defineProps({
     default: true
   }
 })
-const service = props.service
-const appConfig = inject('appConfig')
-const returnURL = props.mode === 'edit' ? '#' : redirector.buildReturnURL(props.service, props.request, props.destination, appConfig)
 
 const favStore = useFavouriteOriginIDsStore()
 const emStore = useExpertModeStore()
+
+const service = props.service
+const appConfig = inject('appConfig')
 
 function favourite(service, mode = 'open') {
   if (mode === 'edit') {
@@ -51,13 +50,25 @@ function favourite(service, mode = 'open') {
   }
 }
 
+function isShown() {
+  return emStore.expertMode || !!(service.hide) === false
+}
+
+function returnURL() {
+  if (props.mode === 'edit') {
+    return '#'
+  } else {
+    redirector.buildReturnURL(props.service, props.request, props.destination, appConfig)
+  }
+}
+
 </script>
 
 <template>
 
   <transition>
-    <div class="list-group-item" v-if="emStore.isEnabled || !!(service.hide) === false">
-      <a class="no-underline" @click="favourite(service, props.mode)" :href="returnURL">
+    <div class="list-group-item" v-if="isShown()">
+      <a class="no-underline" @click="favourite(service, props.mode)" :href="returnURL()">
         <div class="row align-items-center">
           <div class="col-auto">
             <EntityLogo :service="props.service" :config="appConfig" />
