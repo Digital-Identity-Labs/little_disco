@@ -4,6 +4,10 @@ function buildReturnURL(service, request, destination, config) {
   const returnParam = request.returnIDParam || 'entityID'
   const url = new URL(returnURL)
 
+  if (!checkReturnURLOK(returnURL, destination)) {
+    throw new Error('Unknown return URL');
+  }
+
   url.searchParams.append(returnParam, service.id)
   return url.toString()
 
@@ -11,12 +15,12 @@ function buildReturnURL(service, request, destination, config) {
 
 function buildInitiatorURL(service, features = {}) {
 
-  const initiatorURL = service.login_url;
+  const initiatorURL = service.login_url
 
-  const url = new URL(initiatorURL);
+  const url = new URL(initiatorURL)
 
   for (const [key, value] of Object.entries(features)) {
-    url.searchParams.append(key, value);
+    url.searchParams.append(key, value)
   }
 
   //url.searchParams.append(features);
@@ -36,8 +40,19 @@ function buildDefaultInitiatorURLs(service) {
 
 }
 
+function checkReturnURLOK(returnURL, destination) {
+
+  if (returnURL === null || returnURL === '') {
+    return false
+  }
+
+  return !!destination.return_url.includes(returnURL, 0);
+
+}
+
 export {
   buildReturnURL,
   buildInitiatorURL,
-  buildDefaultInitiatorURLs
+  buildDefaultInitiatorURLs,
+  checkReturnURLOK
 }
