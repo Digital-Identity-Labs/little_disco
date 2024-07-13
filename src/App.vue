@@ -3,7 +3,18 @@ import { RouterLink, RouterView } from 'vue-router'
 
 import LayoutTop from './components/LayoutTop.vue'
 import LayoutFooter from './components/LayoutFooter.vue'
+import { computed, onErrorCaptured, ref } from 'vue'
+import ErrorMessage from '@/components/ErrorMessage.vue'
 
+const errorMsg = ref("");
+
+onErrorCaptured((error) => {
+  console.error(error);
+  errorMsg.value = error;
+  return false;
+})
+
+const isError = computed( () => errorMsg.value !== "")
 
 </script>
 
@@ -14,7 +25,8 @@ import LayoutFooter from './components/LayoutFooter.vue'
 
     <!-- Page body -->
     <div class="page-body">
-      <RouterView :key="$route.fullPath"/>
+      <ErrorMessage v-if="isError" :error-message="errorMsg"></ErrorMessage>
+      <RouterView v-else :key="$route.fullPath"/>
     </div>
   </div>
 
