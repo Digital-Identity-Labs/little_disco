@@ -17,6 +17,9 @@ const app_defaults = {
   fuzzy_search: 0.0,
   max_results: 6,
   max_favourites: 6,
+  cdc_domain: null,
+  cdc_read: false,
+  cdc_write: false,
   destinations: [
     {
       id: 'https://sho.digitalidentitylabs.com/shibboleth',
