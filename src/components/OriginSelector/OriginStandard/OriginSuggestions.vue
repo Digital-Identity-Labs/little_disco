@@ -4,7 +4,6 @@ import { inject } from 'vue'
 import OriginItem from '@/components/OriginSelector/OriginItem.vue'
 import * as suggestionEngine from '@/utils/suggestion_engine.js'
 import * as geoLocation from '@/utils/geolocation.js'
-import * as originsStrategy from '@/utils/origins.js'
 import * as netStrategy from '@/utils/network.js'
 import IconSearch from '@/components/icons/IconSearch.vue'
 import { getOriginIDs } from '@/utils/cdcookie.js'
@@ -44,7 +43,6 @@ function toSearch() {
 </script>
 
 <template>
-
 
   <div class="card-header">
     <h3 class="card-title">Suggestions</h3>
