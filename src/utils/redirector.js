@@ -61,10 +61,10 @@ function buildDefaultInitiatorURLs(service) {
 function checkReturnURLOK(returnURL, destination) {
 
   if (returnURL === null || returnURL === '') {
-    return false
+    return false;
   }
 
-  return !!destination.return_url.includes(returnURL, 0);
+  return returnURL.startsWith(destination.return_url);
 
 }
 
