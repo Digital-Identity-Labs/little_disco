@@ -1,10 +1,7 @@
 <script setup>
 import DestinationCard from '@/components/DestinationSelector/DestinationCard.vue'
-
-import * as sp from '../utils/sp'
 import * as destinations from '../utils/destinations.js'
-
-import { inject, shallowRef } from 'vue'
+import { inject } from 'vue'
 
 const appConfig = inject('appConfig');
 const discoDestination = inject('discoDestination');

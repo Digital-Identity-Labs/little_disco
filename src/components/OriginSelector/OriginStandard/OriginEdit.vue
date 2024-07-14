@@ -1,13 +1,11 @@
 <script setup>
-import { inject, ref, watch } from 'vue'
-import { reactive, computed } from 'vue'
+import { inject, watch } from 'vue'
+import { computed } from 'vue'
 import OriginItem from '@/components/OriginSelector/OriginItem.vue'
 import { useFavouriteOriginIDsStore } from '@/stores/favourite_origin_ids.js'
 import IconDelete from '@/components/icons/IconDelete.vue'
 import router from '@/router/index.js'
 const props = defineProps(['request', 'destination'])
-
-//const appConfig = inject('appConfig')
 
 const favStore = useFavouriteOriginIDsStore()
 

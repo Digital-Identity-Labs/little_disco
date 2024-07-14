@@ -1,17 +1,8 @@
 <script setup>
 
-
-import { inject, ref } from 'vue'
-import { reactive, computed } from 'vue'
 import OriginItem from '@/components/OriginSelector/OriginItem.vue'
-import * as filters from '@/utils/service_filter.js'
 
 const props = defineProps(['request', 'destination', 'servicesData']);
-
-const appConfig = inject('appConfig');
-
-
-
 
 </script>
 

@@ -1,8 +1,6 @@
 <script setup>
-import EntityLogo from '@/components/icons/EntityLogo.vue'
 
 const props = defineProps(['service'])
-import { inject } from 'vue'
 import * as redirector from '@/utils/redirector.js'
 import { useExpertModeStore } from '@/stores/expert_mode.js'
 
@@ -42,6 +40,5 @@ const emStore = useExpertModeStore()
   </template>
 
   <a v-else class="btn btn-primary ms-auto disabled"><span class="d-md-none d-lg-block">Access&nbsp;>></span> >></a>
-
 
 </template>

@@ -1,14 +1,10 @@
 <script setup>
 
-
 import { inject, ref } from 'vue'
-import { reactive, computed } from 'vue'
+import { computed } from 'vue'
 import OriginItem from '@/components/OriginSelector/OriginItem.vue'
 import MiniSearch from 'minisearch'
-import { useFavouriteOriginIDsStore } from '@/stores/favourite_origin_ids.js'
 import { useSearchOptionsStore } from '@/stores/search_options.js'
-
-import { useFocus } from '@vueuse/core'
 
 const appConfig = inject('appConfig')
 
@@ -26,14 +22,13 @@ miniSearch.addAll(servicesData.values())
 
 const searchInput = ref('')
 
-const searchOptionsStore = useSearchOptionsStore();
+const searchOptionsStore = useSearchOptionsStore()
 
 const searchResults = computed(() => {
   if (searchInput.value.length > 2) {
     const text = searchInput.value.includes('@') ? searchInput.value.split('@')[1] : searchInput.value
-    const results = miniSearch.search(text, { prefix: true, boost: {name: 2}, fuzzy: appConfig.fuzzy_search });
-    //const count = results.length;
-    return results.slice(0, appConfig.max_results);
+    const results = miniSearch.search(text, { prefix: true, boost: { name: 2 }, fuzzy: appConfig.fuzzy_search })
+    return results.slice(0, appConfig.max_results)
   } else {
     return []
   }

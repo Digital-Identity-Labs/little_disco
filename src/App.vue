@@ -1,11 +1,11 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
 
 import LayoutTop from './components/LayoutTop.vue'
 import LayoutFooter from './components/LayoutFooter.vue'
 import { computed, onErrorCaptured, ref } from 'vue'
 import ErrorMessage from '@/components/ErrorMessage.vue'
-import { useRouter, useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
 import PassiveView from '@/views/PassiveView.vue'
 
 const route = useRoute()

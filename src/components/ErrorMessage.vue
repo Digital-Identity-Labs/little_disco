@@ -1,13 +1,7 @@
 <script setup>
-import { inject } from 'vue'
-import EntityLogo from '@/components/icons/EntityLogo.vue'
-import DestinationCard from '@/components/DestinationSelector/DestinationCard.vue'
 import { useExpertModeStore } from '@/stores/expert_mode.js'
 
 const props = defineProps(['errorMessage'])
-
-const discoDestination = inject('discoDestination');
-const appConfig = inject('appConfig');
 const emStore = useExpertModeStore();
 
 </script>

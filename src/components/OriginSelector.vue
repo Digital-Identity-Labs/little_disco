@@ -3,9 +3,7 @@ import OriginAdd from '@/components/OriginSelector/OriginStandard/OriginAdd.vue'
 import OriginEdit from '@/components/OriginSelector/OriginStandard/OriginEdit.vue'
 import OriginFavourites from '@/components/OriginSelector/OriginStandard/OriginFavourites.vue'
 import OriginSuggestions from '@/components/OriginSelector/OriginStandard/OriginSuggestions.vue'
-
 import OriginSimpleList from '@/components/OriginSelector/OriginSimple/OriginList.vue'
-
 import IconDelete from '@/components/icons/IconDelete.vue'
 import IconDeleteDisabled from '@/components/icons/IconDeleteDisabled.vue'
 import IconAdd from '@/components/icons/IconAdd.vue'
@@ -13,12 +11,7 @@ import IconFavourites from '@/components/icons/IconFavourites.vue'
 import IconSuggest from '@/components/icons/IconSuggest.vue'
 
 import { useFavouriteOriginIDsStore } from '@/stores/favourite_origin_ids.js'
-
-
 import * as destinations from '../utils/destinations.js'
-
-import { computed, ref } from 'vue'
-import { useStorage } from '@vueuse/core'
 import { inject, provide } from 'vue'
 import * as originsStrategy from '@/utils/origins.js'
 

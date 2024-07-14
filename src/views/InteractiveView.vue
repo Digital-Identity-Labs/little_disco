@@ -2,24 +2,12 @@
 import DestinationSelector from '@/components/DestinationSelector.vue'
 import OriginSelector from '@/components/OriginSelector.vue'
 
-import { useRouter, useRoute } from 'vue-router'
-import { inject, ref, shallowRef, onBeforeMount, computed } from 'vue'
-import { provide } from 'vue'
-import { onBeforeRouteUpdate } from 'vue-router'
-import * as redirector from '@/utils/redirector.js'
-import * as destinations from '../utils/destinations.js'
+import { useRoute } from 'vue-router'
+import * as discoRequest from '@/utils/disco_request.js'
 
 const route = useRoute()
 const queryParams = route.query
-
-import * as discoRequest from '@/utils/disco_request.js'
-import { useFavouriteOriginIDsStore } from '@/stores/favourite_origin_ids.js'
-
-
-const appConfig = inject('appConfig')
-
 const request = discoRequest.parseRequest(queryParams, {})
-
 const title = request.homeMode === 'origin' ? 'Select Your Institution' : 'Services'
 
 </script>

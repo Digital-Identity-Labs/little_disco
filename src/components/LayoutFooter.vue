@@ -1,6 +1,5 @@
 <script setup>
-import { inject, shallowRef, ref } from 'vue'
-import { useFavouriteOriginIDsStore } from '@/stores/favourite_origin_ids.js'
+import { inject } from 'vue'
 import { useExpertModeStore } from '@/stores/expert_mode.js'
 
 const appConfig = inject('appConfig');

@@ -1,26 +1,19 @@
 <script setup>
 
 
-import { inject, ref } from 'vue'
-import { reactive, computed } from 'vue'
-import { useGeolocation } from '@vueuse/core'
+import { inject } from 'vue'
 
 import OriginItem from '@/components/OriginSelector/OriginItem.vue'
-import * as filters from '@/utils/service_filter.js'
+
 import * as suggestionEngine from '@/utils/suggestion_engine.js'
 import * as geoLocation from '@/utils/geolocation.js'
-import * as originsStrategy from '@/utils/origins.js'
-import * as netStrategy from '@/utils/network.js'
-import IconDelete from '@/components/icons/IconDelete.vue'
 import IconSearch from '@/components/icons/IconSearch.vue'
-import * as bootstrap from '@tabler/core/dist/libs/bootstrap/dist/js/bootstrap.js'
 import { getOriginIDs, setOriginIDs } from '@/utils/cdcookie.js'
 
 const props = defineProps(['request', 'destination'])
 
 const appConfig = inject('appConfig')
 
-//const servicesData =  [];
 const geo = await geoLocation.getLocation(appConfig)
 
 const netService = netStrategy.is(appConfig.net_provider_type)
