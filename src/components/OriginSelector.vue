@@ -39,7 +39,6 @@ const favStore = useFavouriteOriginIDsStore()
 provide('servicesData', servicesData);
 
 
-
 </script>
 
 <template>
