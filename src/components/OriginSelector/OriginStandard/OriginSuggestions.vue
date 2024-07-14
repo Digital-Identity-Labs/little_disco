@@ -1,14 +1,14 @@
 <script setup>
 
-
 import { inject } from 'vue'
-
 import OriginItem from '@/components/OriginSelector/OriginItem.vue'
-
 import * as suggestionEngine from '@/utils/suggestion_engine.js'
 import * as geoLocation from '@/utils/geolocation.js'
+import * as originsStrategy from '@/utils/origins.js'
+import * as netStrategy from '@/utils/network.js'
 import IconSearch from '@/components/icons/IconSearch.vue'
-import { getOriginIDs, setOriginIDs } from '@/utils/cdcookie.js'
+import { getOriginIDs } from '@/utils/cdcookie.js'
+
 
 const props = defineProps(['request', 'destination'])
 
@@ -35,7 +35,7 @@ function toSearch() {
   otherTabPanes.forEach((id) => id.classList.remove('active', 'show'))
 
   const searchTab = document.querySelector('#tl2')
-  const otherTabs = [document.querySelector('#tl1'), document.querySelector('#tl33')]
+  const otherTabs = [document.querySelector('#tl1'), document.querySelector('#tl3')]
   searchTab.classList.add('active')
   otherTabs.forEach((id) => id.classList.remove('active'))
 
