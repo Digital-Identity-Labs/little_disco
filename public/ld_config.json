@@ -4,6 +4,9 @@
   "df_provider_url": "/data/uk_en.json",
   "net_provider_type": "header",
   "request_geo": true,
+  "cdc_domain": "localhost",
+  "cdc_read": true,
+  "cdc_write": true,
   "destinations": [
     {
       "id": "https://sho.digitalidentitylabs.com/shibboleth",
