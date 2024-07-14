@@ -1,5 +1,4 @@
 import Cookies from 'universal-cookie';
-import * as utf8 from 'utf8';
 import * as base64 from 'base-64';
 
 function getOriginIDs(appConfig) {

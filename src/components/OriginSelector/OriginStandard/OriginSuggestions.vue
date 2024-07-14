@@ -8,13 +8,9 @@ import * as netStrategy from '@/utils/network.js'
 import IconSearch from '@/components/icons/IconSearch.vue'
 import { getOriginIDs } from '@/utils/cdcookie.js'
 
-
 const props = defineProps(['request', 'destination'])
-
 const appConfig = inject('appConfig')
-
 const geo = await geoLocation.getLocation(appConfig)
-
 const netService = netStrategy.is(appConfig.net_provider_type)
 const ipAddress = await netService.getIPAddress(appConfig)
 const cookieIDs = getOriginIDs(appConfig)
