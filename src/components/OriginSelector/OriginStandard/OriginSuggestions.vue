@@ -14,33 +14,37 @@ import * as netStrategy from '@/utils/network.js'
 import IconDelete from '@/components/icons/IconDelete.vue'
 import IconSearch from '@/components/icons/IconSearch.vue'
 import * as bootstrap from '@tabler/core/dist/libs/bootstrap/dist/js/bootstrap.js'
-
+import { getOriginIDs, setOriginIDs } from '@/utils/cdcookie.js'
 
 const props = defineProps(['request', 'destination'])
 
 const appConfig = inject('appConfig')
 
 //const servicesData =  [];
-const geo = await geoLocation.getLocation(appConfig);
+const geo = await geoLocation.getLocation(appConfig)
 
 const netService = netStrategy.is(appConfig.net_provider_type)
 const ipAddress = await netService.getIPAddress(appConfig)
-
+const cookieIDs = getOriginIDs(appConfig)
 const servicesData = inject('servicesData')
 
-const suggestedServices = suggestionEngine.initialSuggestionList(servicesData, { ip: ipAddress, geo: geo}, appConfig)
+const suggestedServices = suggestionEngine.initialSuggestionList(servicesData, {
+  ip: ipAddress,
+  geo: geo,
+  cdc: cookieIDs
+}, appConfig)
 
 function toSearch() {
 
   const searchTabPane = document.querySelector('#tab-bottom-2')
   const otherTabPanes = [document.querySelector('#tab-bottom-1'), document.querySelector('#tab-bottom-3')]
-  searchTabPane.classList.add('active', 'show');
-  otherTabPanes.forEach((id) => id.classList.remove('active', 'show'));
+  searchTabPane.classList.add('active', 'show')
+  otherTabPanes.forEach((id) => id.classList.remove('active', 'show'))
 
   const searchTab = document.querySelector('#tl2')
   const otherTabs = [document.querySelector('#tl1'), document.querySelector('#tl33')]
-  searchTab.classList.add('active');
-  otherTabs.forEach((id) => id.classList.remove('active'));
+  searchTab.classList.add('active')
+  otherTabs.forEach((id) => id.classList.remove('active'))
 
 }
 
@@ -66,7 +70,8 @@ function toSearch() {
 
   <div class="card-footer position-absolute bottom-0 end-0">
     <div class="d-flex">
-      <a @click="toSearch()"  class="btn btn-primary ms-auto" ><IconSearch/>&nbsp;Search for your institution</a>
+      <a @click="toSearch()" class="btn btn-primary ms-auto">
+        <IconSearch />&nbsp;Search for your institution</a>
     </div>
   </div>
 

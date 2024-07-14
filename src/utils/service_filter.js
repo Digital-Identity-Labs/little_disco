@@ -36,6 +36,11 @@ function filterByLocation(services, userGeo, distance = 50000) {
 
 }
 
+function filterByIDs(services, ids) {
+  if (ids === [] || ids === null) { return []; }
+  return services.filter((service) => ids.includes(service.id)  )
+}
+
 function isServiceHidden(service) {
   return !!(service.hide) === false
 }
@@ -45,4 +50,4 @@ function formatSAMLTextToGeo(coords) {
   return createLocation(parseFloat(lat), parseFloat(lon), 'LatLon')
 }
 
-export { maybeFilterByHidden, filterByNetwork, filterByLocation }
+export { maybeFilterByHidden, filterByNetwork, filterByLocation, filterByIDs }
