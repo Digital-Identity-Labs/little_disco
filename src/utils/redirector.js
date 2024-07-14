@@ -13,6 +13,24 @@ function buildReturnURL(service, request, destination, config) {
 
 }
 
+function buildPassiveReturnURL(service, request, destination, config) {
+
+  const returnURL = request.return || destination.return_url
+  const returnParam = request.returnIDParam || 'entityID'
+  const url = new URL(returnURL)
+
+  if (!checkReturnURLOK(returnURL, destination)) {
+    throw new Error('Unknown return URL');
+  }
+
+  if (service) {
+    url.searchParams.append(returnParam, service.id)
+    return url.toString();
+  } else {
+    return url;
+  }
+}
+
 function buildInitiatorURL(service, features = {}) {
 
   const initiatorURL = service.login_url
@@ -54,5 +72,6 @@ export {
   buildReturnURL,
   buildInitiatorURL,
   buildDefaultInitiatorURLs,
-  checkReturnURLOK
+  checkReturnURLOK,
+  buildPassiveReturnURL
 }

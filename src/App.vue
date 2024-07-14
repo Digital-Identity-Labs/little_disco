@@ -5,32 +5,46 @@ import LayoutTop from './components/LayoutTop.vue'
 import LayoutFooter from './components/LayoutFooter.vue'
 import { computed, onErrorCaptured, ref } from 'vue'
 import ErrorMessage from '@/components/ErrorMessage.vue'
+import { useRouter, useRoute } from 'vue-router'
+import PassiveView from '@/views/PassiveView.vue'
 
-const errorMsg = ref("");
+const route = useRoute()
+
+const errorMsg = ref('')
 
 onErrorCaptured((error) => {
-  console.error(error);
-  errorMsg.value = error;
-  return false;
+  console.error(error)
+  errorMsg.value = error
+  return false
 })
 
-const isError = computed( () => errorMsg.value !== "")
+const isError = computed(() => errorMsg.value !== '');
+const isPassive = route.query.isPassive === 'true';
 
 </script>
 
 <template>
-  <LayoutTop />
-  <div class="page-wrapper">
-    <!-- Page header -->
 
-    <!-- Page body -->
-    <div class="page-body">
-      <ErrorMessage v-if="isError" :error-message="errorMsg"></ErrorMessage>
-      <RouterView v-else :key="$route.fullPath"/>
+  <template v-if="isPassive">
+    <suspense>
+      <PassiveView />
+    </suspense>
+  </template>
+
+  <template v-else>
+    <LayoutTop />
+    <div class="page-wrapper">
+      <div class="page-body">
+        <suspense>
+          <ErrorMessage v-if="isError" :error-message="errorMsg"></ErrorMessage>
+          <RouterView v-else :key="$route.fullPath" />
+        </suspense>
+      </div>
     </div>
-  </div>
 
-  <LayoutFooter/>
+    <LayoutFooter />
+  </template>
+
 </template>
 
 <style scoped>
