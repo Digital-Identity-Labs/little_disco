@@ -56,9 +56,9 @@ function isShown() {
 
 function returnURL() {
   if (props.mode === 'edit') {
-    return '#'
+    return '#';
   } else {
-    redirector.buildReturnURL(props.service, props.request, props.destination, appConfig)
+    return redirector.buildReturnURL(props.service, props.request, props.destination, appConfig);
   }
 }
 

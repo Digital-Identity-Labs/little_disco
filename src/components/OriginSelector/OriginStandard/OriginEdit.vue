@@ -17,7 +17,8 @@ const favouriteServices = computed( () => favStore.favouriteIDs.map((id) => serv
 
 watch(favouriteServices, (newFavouriteServices) => {
   if (newFavouriteServices.length === 0) {
-    router.go();
+    console.log('All my favourites gone')
+    router.go(0);
   }
 })
 
