@@ -12,6 +12,8 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@appsignal/javascript": "^1.3.30",
+    "@appsignal/vue": "^1.1.5",
     "@tabler/core": "^1.0.0-beta19",
     "@vueuse/core": "^10.11.0",
     "base-64": "^1.0.0",
