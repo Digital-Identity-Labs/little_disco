@@ -2,6 +2,10 @@ import './assets/main.css'
 import '@tabler/core'
 
 import Plausible from 'plausible-tracker'
+import { errorHandler } from "@appsignal/vue";
+import Appsignal from "@appsignal/javascript"
+
+
 
 import * as defaultConfig from '@/utils/default_config'
 import * as backend from '@/utils/backend'
@@ -42,5 +46,9 @@ if (appConfig.use_plausible === true) {
 
 }
 
+if (appConfig.use_appsignal === true) {
+ const appsignal = new Appsignal({key: appConfig.appsignal_key})
+  app.config.errorHandler = errorHandler(appsignal, app);
+}
 
 app.mount('#app')

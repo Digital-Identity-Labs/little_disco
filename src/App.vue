@@ -15,7 +15,7 @@ const errorMsg = ref('')
 onErrorCaptured((error) => {
   console.error(error)
   errorMsg.value = error
-  return false
+  return true;
 })
 
 const isError = computed(() => errorMsg.value !== '');

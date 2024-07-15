@@ -8,7 +8,7 @@ is also able to present a simpler UI for smaller business or research federation
 Little Disco can be used used with any Shibboleth Service Provider that supports the OASIS
 [Identity Provider Discovery Service
 Protocol and Profile](https://docs.oasis-open.org/security/saml/Post2.0/sstc-saml-idp-discovery.pdf) standard, such as the
-[Shibboleth SP(https://shibboleth.atlassian.net/wiki/spaces/SP3/overview), [SimpleSAMLphp](https://simplesamlphp.org) and [Satosa](https://github.com/IdentityPython/SATOSA)
+[Shibboleth SP](https://shibboleth.atlassian.net/wiki/spaces/SP3/overview), [SimpleSAMLphp](https://simplesamlphp.org) and [Satosa](https://github.com/IdentityPython/SATOSA)
 
 Little Disco also includes a simple service menu that presents a list of services, with optional special login requests such
 as MFA, SFA, passive and forced authentication. This menu is particularly useful when testing integration with service

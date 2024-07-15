@@ -12,6 +12,8 @@ const app_defaults = {
   em_default: false,
   use_plausible: false,
   plausible_domain: null,
+  use_appsignal: false,
+  appsignal_key: null,
   request_geo: true,
   geo_distance: 50000,
   fuzzy_search: 0.0,
