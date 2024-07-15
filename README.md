@@ -1,67 +1,161 @@
-# littleDisco
+# Little Disco - A Simple SAML Discovery / WAYF Service
 
-This template should help get you started developing with Vue 3 in Vite.
+Little Disco is a small, lightweight [SAML](https://en.wikipedia.org/wiki/SAML_2.0) Discovery Service (sometimes called a "WAYF", or Where Are You From service). 
+It allows someone to choose which institution's Identity Provider (IdP) to use when logging into a federated service. 
+This is very useful when a service is part of a large academic federation with thousands of organisations, but Little Disco
+is also able to present a simpler UI for smaller business or research federations.
 
-## Recommended IDE Setup
+Little Disco can be used used with any Shibboleth Service Provider that supports the OASIS
+[Identity Provider Discovery Service
+Protocol and Profile](https://docs.oasis-open.org/security/saml/Post2.0/sstc-saml-idp-discovery.pdf) standard, such as the
+[Shibboleth SP(https://shibboleth.atlassian.net/wiki/spaces/SP3/overview), [SimpleSAMLphp](https://simplesamlphp.org) and [Satosa](https://github.com/IdentityPython/SATOSA)
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+Little Disco also includes a simple service menu that presents a list of services, with optional special login requests such
+as MFA, SFA, passive and forced authentication. This menu is particularly useful when testing integration with service
+providers.
 
-## Customize configuration
+Little Disco's notable features for users:
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+  - Simple, fast, clear user interface with familiar layout
+  - Suggestions for new users based on IP addresses, geo-location, shared cookies and other hints
+  - Integrated search with fuzziness and weighting to help find IdPs
+  - Passive Discovery for when you don't want show a user interface at all
+  - Optional service menu to help users access or test certain services
+  - Simplified UI for business and research and niche contexts
+  - Can easily show hidden IdPs (which are not needed by most users but are sometimes needed for testing)
 
-## Project Setup
+Little Disco's notable features for system administrators:
 
-```sh
-npm install
-```
+- Easy installation and configuration - just copy the files to a web server
+- Runs entirely on the user's browser, so easy to scale
+- Clean modern code written with the popular VueJS framework
+- Does not rely on CrossDomain behaviour, iframes or other cleverness
+- Can be entirely static: no backend service is required. No PHP or Java. No MDQ services.
+- But admins have options: various backends and data formats are supported
+- Uses new uDisco data format: much smaller and faster than the usual DiscoFeed files (16K vs 1.5M, for example)
+- With automation it is easy to create many simple managed instances for contexts like SaaS
+- Integrated, optional clients for [Plausible](https://plausible.io) (simple privacy-safe view counters) and 
+  [AppSignal](https://appsignal.com) (service error alerts)
+- Installation and support is available from [Mimoto](https://mimoto.co.uk)
+- It's possible to extend Little Disco's functionality with additional backends, some of which will be available commercially
+  from [Mimoto](https://mimoto.co.uk)
 
-### Compile and Hot-Reload for Development
+## Live Demo 
 
-```sh
-npm run dev
-```
+There is a live demo of Little Disco's service page at [https://littledisco.digitalidentitylabs.com](https://littledisco.digitalidentitylabs.com)
 
-### Compile and Minify for Production
+You can see Little Disco's disco page in action by access [Sho](https://sho.digitalidentitylabs.com) (Your institution 
+may not have metadata for Sho yet, so don't expect to actually login)
 
-```sh
-npm run build
-```
+## Installation
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+A basic install of Little Disco, using the default destinations (SPs) and origins (IdPs) only involves unpacking an archive
+and uploading/copying files into place on a web server.
 
-```sh
-npm run test:unit
-```
+### Using a Github Release
 
-### Lint with [ESLint](https://eslint.org/)
+  * Unpack the archive
+  * Copy index.html and assets to the public files directory for your web server or vhost
+  * Make sure there is a file called ld_config.json in public files directory, containing `{}`
 
-```sh
-npm run lint
-```
+### Building and running locally 
 
+  * Clone [this Github repository](https://github.com/Digital-Identity-Labs/little_disco)
+  * Have a recent Node.js installed
+  * `npm install`
+  * `npm run dev` to run a local copy
+  * `npm run build --production` to build files to install on your server
 
-http://docs.oasis-open.org/security/saml/v2.0/saml-profiles-2.0-os.pdf
+### As a Docker container
 
-Icon by:
-https://thenounproject.com/creator/blaisetsewell/
+TBC
 
-disco by Blaise Sewell from <a href="https://thenounproject.com/browse/icons/term/disco/" target="_blank" title="disco Icons">Noun Project</a> (CC BY 3.0)
+## Configuration
 
-https://service.seamlessaccess.org/ds/?entityID=https%3A%2F%2Ftest.ukfederation.org.uk%2Fentity&return=https%3A%2F%2Ftest.ukfederation.org.uk%2FShibboleth.sso%2FLogin%3FSAMLDS%3D1%26target%3Dss%253Amem%253A1f1ac92d3e714281424ce9d3b92055ef615448a5ad11b960d86367fedab67733
+By default Little Disco will happily run with its built-in lists of SPs and IdPs but this is almost certainly not what you want.
+There are lots of configuration options to make it fit your context.
 
-https://www.ukfederation.org.uk/content/Documents/Discovery
+Various features have a choice of "provider", often with a groups of settings following the pattern `thing_provider_type`
+and `thing_provider_url`. Little Disco is a client-side app so there are no passwords.
 
-https://docs.oasis-open.org/security/saml/Post2.0/sstc-saml-idp-discovery.pdf
+### Destinations
 
-https://groups.niso.org/higherlogic/ws/public/download/21376
+TBC
 
-https://www.npmjs.com/package/geolocation-utils
+### Origins
 
-https://github.com/balazsbotond/urlcat?tab=readme-ov-file
+TBC
 
-https://www.npmjs.com/package/qs
+### Configuring your SP
 
-https://shibboleth.atlassian.net/wiki/spaces/SP3/pages/2065334348/SSO
+The URL your Little Disco SAML DS service is simply the base URL of where-ever you have installed it, with no additional path.
 
-https://shibboleth.atlassian.net/wiki/spaces/SP3/pages/2065334685/SessionInitiator#SessionInitiator-SessionInitiator-InitiatorProtocol
+For example the URL to use for the demo at `https://littledisco.digitalidentitylabs.com` is simply 
+`https://littledisco.digitalidentitylabs.com` - if the `entityID` param is present Little Disco switches from showing 
+a menu to acting as a discovery service.
+
+* [Shibboleth SP](https://shibboleth.atlassian.net/wiki/spaces/SP3/pages/2065334348/SSO) you need to edit `discoveryProtocol`
+  and `discoveryURL`
+* [SimpleSAMLphp](https://simplesamlphp.org/docs/stable/saml/sp.html) You need to change the `DiscoURL` setting
+* [php-saml-sp](https://www.php-saml-sp.eu/#config) Change the `discoURL` setting
+
+## Caveats
+
+  * As of 2024 this is a new project, there may be bugs. 
+  * I'm new to modern Javascript and VueJS, so there might be some active learning going on
+  * The more efficient data formats require your own scripts or the [Smee](https://github.com/Digital-Identity-Labs/smee)
+    libraries to generate
+  * There is no central store, so Little Disco cannot behave like Seamless Access. 
+  * Large federations and a slow internet connection will cause the page to take awhile to load. (For reference, the UK federation on an
+  8Mb/s ADSL connection works fine)
+  * Little Disco may be slow on older, slow PCs
+  * As a client side app Little Disco will not work with scripts and non-browser HTTP agents unless they also include JS
+    rendering
+  * Little Disco has not been audited or tested for accessibility yet
+
+## Alternatives
+
+Little Disco is new, but this sort of software has been around for well over a decade.
+
+  * [Shibboleth Embedded Discovery Service](https://shibboleth.atlassian.net/wiki/spaces/EDS10/overview) A Javascript
+  application to use in combination with the Shibboleth SP
+  * [Thiss](https://thiss-js.readthedocs.io/en/latest/components.html#oasis-identity-provider-discovery) The discovery
+    service used by Seamless Access, enhanced by a centralised persistent favourite store
+
+## References
+
+   * [OASIS Identity Provider Discovery Service Protocol and Profile](https://docs.oasis-open.org/security/saml/Post2.0/sstc-saml-idp-discovery.pdf)
+     This is the standard spec
+   * [UK Access Management Federation's docs on discovery](https://www.ukfederation.org.uk/content/Documents/Discovery)
+   * [Recommended Practices for Improved Access to Institutionally-Provided Information Resources](https://groups.niso.org/higherlogic/ws/public/download/21376)
+     NISO's research and recommendations (some followed, some ignored)
+
+## Development
+
+* Clone [this Github repository](https://github.com/Digital-Identity-Labs/little_disco)
+* Have a recent Node.js installed
+* `npm install`
+* `npm run dev` to run a local copy
+
+You can run test with `npm run test:unit`
+
+You can lint with `npm run lint`
+
+Apparently with [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) your should disable Vetur. I don't know what these are, or why.
+
+## Contributing
+
+Bug reports and pull requests are welcome on GitHub at https://github.com/Digital-Identity-Labs/mdqt.
+This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+
+## Contributors
+
+* The disco icon is by [Blaise Sewell](https://thenounproject.com/creator/blaisetsewell/) via [Noun Project](https://thenounproject.com/browse/icons/term/disco/) (CC BY 3.0)
+
+## License
+
+Copyright (c) 2024 Digital Identity Ltd, UK
+
+LittleDisco is Apache 2.0 licensed.
+
+The disco icon is (c) [Blaise Sewell]https://thenounproject.com/creator/blaisetsewell/) and is CC BY 3.0 licensed
