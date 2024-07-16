@@ -1,6 +1,6 @@
 
 
-function lookupService(id, config) {
+function lookupService(id, config, options={}) {
   const services = config.destinations;
   const found = services.find((item) => item.id === id)
 

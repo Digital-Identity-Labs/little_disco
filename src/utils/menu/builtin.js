@@ -1,10 +1,10 @@
 
 
-function listServices(config) {
+function listServices(config, options={}) {
   return config.destinations;
 }
 
-function lookupService(id, config) {
+function lookupService(id, config, options={}) {
   const services = listServices(config)
   const found = services.find((item) => item.id === id)
 

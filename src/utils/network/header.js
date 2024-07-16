@@ -1,6 +1,6 @@
 import * as backend from '@/utils/backend'
 
-async function getIPAddress(appConfig) {
+async function getIPAddress(appConfig, options={}) {
   try {
     const headers = await backend.fetchHeaders(appConfig.net_provider_url);
     if (headers) {

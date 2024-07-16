@@ -1,7 +1,7 @@
 
 import  * as backend from '@/utils/backend';
 
-async function getIPAddress(config) {
+async function getIPAddress(config, options={}) {
   try {
     const text = await backend.fetchFile('https://www.cloudflare.com/cdn-cgi/trace');
     if (text) {
