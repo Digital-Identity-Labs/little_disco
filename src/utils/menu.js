@@ -1,5 +1,5 @@
 import * as bemBuiltin from '@/utils/menu/builtin.js'
-import * as bemNone from '@/utils/network/none.js'
+import * as bemNone from '@/utils/menu/none.js'
 
 function is(is) {
   switch (is) {
@@ -10,6 +10,7 @@ function is(is) {
     case null:
       return bemNone;
     default:
+      console.log('Undefined provider!')
       throw Error('Unknown provider for menu!');
   }
 }

@@ -15,6 +15,7 @@ function is(is) {
     case null:
       return bemNone;
     default:
+      console.log('Undefined provider!')
       throw Error('Unknown provider for origins!');
   }
 }
