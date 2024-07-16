@@ -11,6 +11,9 @@ function is(is) {
       return bemBuiltin;
     case 'udisco':
       return bemUdisco;
+    case 'none':
+    case null:
+      return bemNone;
     default:
       throw Error('Unknown provider for origins!');
   }

@@ -9,6 +9,7 @@ function is(is) {
     case 'default':
       return bemBuiltin;
     case 'none':
+    case null:
       return bemNone;
     default:
       throw Error('Unknown provider for destinations!');

@@ -12,6 +12,9 @@ function is(is) {
       return bemCloudflare;
     case 'amazon':
       return bemAmazon;
+    case 'none':
+    case null:
+      return bemNone;
     default:
       throw Error('Unknown provider for network hints!');
   }
