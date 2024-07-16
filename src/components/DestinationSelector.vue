@@ -1,12 +1,16 @@
 <script setup>
 import DestinationCard from '@/components/DestinationSelector/DestinationCard.vue'
-import * as destinations from '../utils/destinations.js'
 import { inject } from 'vue'
+import * as menuStrategy from '../utils/menu.js'
+
+
 
 const appConfig = inject('appConfig');
 const discoDestination = inject('discoDestination');
 
 discoDestination.value = null;
+
+const destinations = menuStrategy.is(appConfig.dest_provider_type)
 
 const servicesData = destinations.listServices(appConfig);
 

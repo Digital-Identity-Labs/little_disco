@@ -72,14 +72,18 @@ const app_defaults = {
       hide: false,
     }
   ],
-  df_provider_type: 'builtin',
-  df_provider_url: null,
-  md_provider_type: 'none',
-  md_provider_url: null,
+  mdq_provider_type: 'none',
+  mdq_provider_url: null,
   logo_provider_type: 'none',
   logo_provider_url: null,
   net_provider_type: 'header',
   net_provider_url: '/',
+  menu_provider_type: 'builtin',
+  menu_provider_url: null,
+  dest_provider_type: 'builtin',
+  dest_provider_url: null,
+  origin_provider_type: 'builtin',
+  origin_provider_url: null,
   default_image_url: 'theme/default_logo.png',
 }
 

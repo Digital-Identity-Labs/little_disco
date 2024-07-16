@@ -1,7 +1,7 @@
 {
   "origin_mode": "full",
-  "df_provider_type": "udisco",
-  "df_provider_url": "/data/uk_en.json",
+  "origin_provider_type": "udisco",
+  "origin_provider_url": "/data/uk_en.json",
   "net_provider_type": "header",
   "request_geo": true,
   "cdc_domain": "localhost",

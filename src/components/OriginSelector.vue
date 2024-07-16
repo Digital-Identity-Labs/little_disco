@@ -11,7 +11,7 @@ import IconFavourites from '@/components/icons/IconFavourites.vue'
 import IconSuggest from '@/components/icons/IconSuggest.vue'
 
 import { useFavouriteOriginIDsStore } from '@/stores/favourite_origin_ids.js'
-import * as destinations from '../utils/destinations.js'
+import * as destinationsStrategy from '../utils/destinations.js'
 import { inject, provide } from 'vue'
 import * as originsStrategy from '@/utils/origins.js'
 
@@ -20,17 +20,17 @@ const props = defineProps(['request'])
 const appConfig = inject('appConfig')
 const discoDestination = inject('discoDestination')
 
+const destinations = destinationsStrategy.is(appConfig.dest_provider_type)
 const destination = destinations.lookupService(props.request.entityID, appConfig)
 
 discoDestination.value = destination
 
-const origins = originsStrategy.is(appConfig.df_provider_type)
+const origins = originsStrategy.is(appConfig.origin_provider_type)
 const servicesData = await origins.listServices(appConfig)
 
 const favStore = useFavouriteOriginIDsStore()
 
 provide('servicesData', servicesData);
-
 
 </script>
 

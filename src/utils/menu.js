@@ -1,10 +1,8 @@
-
-import * as bemBuiltin from '@/utils/destinations/builtin.js'
-import * as bemNone from '@/utils/destinations/none.js'
+import * as bemBuiltin from '@/utils/menu/builtin.js'
+import * as bemNone from '@/utils/network/none.js'
 
 function is(is) {
   switch (is) {
-    case 'static':
     case 'builtin':
     case 'default':
       return bemBuiltin;
