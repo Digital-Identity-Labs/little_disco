@@ -13,7 +13,7 @@ function is(is) {
     case 'amazon':
       return bemAmazon;
     default:
-      return bemNone;
+      throw Error('Unknown provider for network hints!');
   }
 }
 

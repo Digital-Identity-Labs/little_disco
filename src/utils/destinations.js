@@ -11,7 +11,7 @@ function is(is) {
     case 'none':
       return bemNone;
     default:
-      return bemNone;
+      throw Error('Unknown provider for destinations!');
   }
 }
 

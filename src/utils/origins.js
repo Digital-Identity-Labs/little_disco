@@ -12,7 +12,7 @@ function is(is) {
     case 'udisco':
       return bemUdisco;
     default:
-      return bemNone;
+      throw Error('Unknown provider for origins!');
   }
 }
 
