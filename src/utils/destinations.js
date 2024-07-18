@@ -1,4 +1,5 @@
 
+import * as bemUdest from '@/utils/destinations/udest.js'
 import * as bemBuiltin from '@/utils/destinations/builtin.js'
 import * as bemNone from '@/utils/destinations/none.js'
 
@@ -8,6 +9,8 @@ function is(is) {
     case 'builtin':
     case 'default':
       return bemBuiltin;
+    case 'udest':
+      return bemUdest;
     case 'none':
     case null:
       return bemNone;

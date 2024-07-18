@@ -21,13 +21,13 @@ const appConfig = inject('appConfig')
 const discoDestination = inject('discoDestination')
 
 const destinations = destinationsStrategy.is(appConfig.dest_provider_type)
-const destination = destinations.lookupService(props.request.entityID, appConfig)
-
+const destination = await destinations.lookupService(props.request.entityID, appConfig)
 discoDestination.value = destination
+
+console.log(destination)
 
 const origins = originsStrategy.is(appConfig.origin_provider_type)
 const servicesData = await origins.listServices(appConfig)
-
 const favStore = useFavouriteOriginIDsStore()
 
 provide('servicesData', servicesData);

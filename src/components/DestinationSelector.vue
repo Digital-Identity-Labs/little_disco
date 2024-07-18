@@ -10,7 +10,7 @@ const discoDestination = inject('discoDestination');
 
 discoDestination.value = null;
 
-const destinations = menuStrategy.is(appConfig.dest_provider_type)
+const destinations = menuStrategy.is(appConfig.menu_provider_type)
 
 const servicesData = destinations.listServices(appConfig);
 

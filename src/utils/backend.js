@@ -3,9 +3,7 @@ import wretch from 'wretch'
 import { throttlingCache, dedupe, retry } from 'wretch/middlewares'
 
 function fetchData(url) {
-
-  return wretch(url).get().json()
-
+  return wretch(url).get().json().catch((error) => console.error(error))
 }
 
 function fetchFile(url) {
@@ -18,7 +16,7 @@ function fetchHeaders(url) {
   // wretch(url).head().res(res => {
   //   return res.headers;
   // }).then(console.log)
-  return wretch(url).head().res().then(res => res.headers);
+  return wretch(url).head().res().then(res => res.headers)
 }
 
 export {

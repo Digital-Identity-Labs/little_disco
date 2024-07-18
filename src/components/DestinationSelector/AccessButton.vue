@@ -15,7 +15,7 @@ const emStore = useExpertModeStore()
 
 <template>
 
-  <template v-if="service.login_url">
+  <template v-if="service.login_urls.length !== 0">
 
     <a v-if="emStore.isEnabled" :href="service.login_url">
       <div class="btn-group">

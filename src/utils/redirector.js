@@ -1,6 +1,6 @@
 function buildReturnURL(service, request, destination, config) {
 
-  const returnURL = request.return || destination.return_url
+  const returnURL = request.return || selectReturnURL(destination);
   const returnParam = request.returnIDParam || 'entityID'
   const url = new URL(returnURL)
 
@@ -15,7 +15,7 @@ function buildReturnURL(service, request, destination, config) {
 
 function buildPassiveReturnURL(service, request, destination, config) {
 
-  const returnURL = request.return || destination.return_url
+  const returnURL = request.return || destination.return_urls[0]
   const returnParam = request.returnIDParam || 'entityID'
   const url = new URL(returnURL)
 
@@ -33,13 +33,15 @@ function buildPassiveReturnURL(service, request, destination, config) {
 
 function buildInitiatorURL(service, features = {}) {
 
-  const initiatorURL = service.login_url
+  const initiatorURL = selectInitiatorURL(service)
 
   const url = new URL(initiatorURL)
 
   for (const [key, value] of Object.entries(features)) {
     url.searchParams.append(key, value)
   }
+
+  console.log(url.toString())
 
   //url.searchParams.append(features);
   return url.toString()
@@ -64,8 +66,16 @@ function checkReturnURLOK(returnURL, destination) {
     return false;
   }
 
-  return returnURL.startsWith(destination.return_url);
+  return destination.return_urls.some((allowedURL) =>  returnURL.startsWith(allowedURL));
 
+}
+
+function selectInitiatorURL(service) {
+  return service.login_urls[0]
+}
+
+function selectReturnURL(service) {
+  return service.return_urls[0]
 }
 
 export {

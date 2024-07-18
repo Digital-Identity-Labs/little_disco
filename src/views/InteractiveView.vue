@@ -14,7 +14,6 @@ const title = request.homeMode === 'origin' ? 'Select Your Institution' : 'Servi
 
 <template>
 
-
   <div class="page-header d-print-none">
     <div class="container-xl">
 

@@ -22,7 +22,7 @@ const emStore = useExpertModeStore();
           <div class="card-body">
             <h3 class="card-title">An Error Has Occurred</h3>
             <p class="text-secondary">Something has gone wrong and we can't continue.</p>
-            <p class="text-secondary">This is not your fault.</p>
+            <p class="text-secondary">This is probably not your fault.</p>
             <p v-if="emStore.isEnabled"><code>{{props.errorMessage.message}}</code></p>
           </div>
         </div>
