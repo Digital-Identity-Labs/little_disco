@@ -1,5 +1,5 @@
 {
-  "origin_mode": "full",
+  "simple_selector": true,
   "origin_provider_type": "udisco",
   "origin_provider_url": "/data/uk_en.json",
   "net_provider_type": "header",
@@ -10,6 +10,7 @@
   "use_appsignal": false,
   "dest_provider_type": "udest",
   "dest_provider_url": "/data/udest",
+  "origins_only": ["https://test-idp.ukfederation.org.uk/idp/shibboleth"],
   "destinations": [
     {
       "id": "https://sho.digitalidentitylabs.com/shibboleth",

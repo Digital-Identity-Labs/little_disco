@@ -24,8 +24,6 @@ const destinations = destinationsStrategy.is(appConfig.dest_provider_type)
 const destination = await destinations.lookupService(props.request.entityID, appConfig)
 discoDestination.value = destination
 
-console.log(destination)
-
 const origins = originsStrategy.is(appConfig.origin_provider_type)
 const servicesData = await origins.listServices(appConfig)
 const favStore = useFavouriteOriginIDsStore()
@@ -36,7 +34,7 @@ provide('servicesData', servicesData);
 
 <template>
 
-  <div v-if="appConfig.origin_mode === 'simple'" class="container-xl">
+  <div v-if="appConfig.simple_selector === true" class="container-xl">
     <div class="row row-cards">
       <OriginSimpleList :request="props.request" :destination="destination" />
     </div>

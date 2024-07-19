@@ -1,0 +1,3 @@
+function selectorMode(appConfig) {
+
+}

@@ -1,8 +1,15 @@
 <script setup>
 
 import OriginItem from '@/components/OriginSelector/OriginItem.vue'
+import { useFavouriteOriginIDsStore } from '@/stores/favourite_origin_ids.js'
+import { computed, inject, watch } from 'vue'
+import router from '@/router/index.js'
 
-const props = defineProps(['request', 'destination', 'servicesData']);
+const props = defineProps(['request', 'destination']);
+const appConfig = inject('appConfig')
+
+const servicesData = inject('servicesData')
+const filteredServicesData = Array.from(servicesData.values()).slice(0, appConfig.max_simple);
 
 </script>
 
@@ -17,7 +24,7 @@ const props = defineProps(['request', 'destination', 'servicesData']);
           </div>
           <div class="list-group list-group-flush list-group-hoverable">
             <OriginItem
-              v-for="(service) in servicesData"
+              v-for="(service) in filteredServicesData"
               :service="service"
               :request="props.request"
               :destination="props.destination"

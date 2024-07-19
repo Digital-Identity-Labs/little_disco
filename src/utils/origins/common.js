@@ -1,10 +1,24 @@
+function onlySpecified(services, appConfig) {
 
-import  * as entityIDUtils from '@/utils/entity_id_utils';
+  const filteredServices = new Map()
 
-function limitList(services) {
-  return services;
+  if (Array.isArray(appConfig.origins_only) && appConfig.origins_only.length > 0 ) {
+
+    appConfig.origins_only.forEach((id) => {
+        const obj = services.get(id)
+        if (obj) {
+          filteredServices.set(id, obj)
+        }
+      }
+    )
+
+    return filteredServices;
+
+  } else {
+    return services;
+  }
 }
 
 export {
-  limitList
-};
+  onlySpecified
+}
