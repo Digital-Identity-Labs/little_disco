@@ -11,8 +11,6 @@ const expertInitiators = redirector.buildDefaultInitiatorURLs(service);
 
 const emStore = useExpertModeStore()
 
-console.log(defaultInitiator)
-
 </script>
 
 <template>

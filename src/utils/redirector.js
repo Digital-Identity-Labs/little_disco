@@ -29,7 +29,7 @@ function buildPassiveReturnURL(service, request, destination, config) {
     url.searchParams.append(returnParam, service.id)
     return url.toString()
   } else {
-    return url
+    return url.toString()
   }
 }
 
@@ -62,20 +62,13 @@ function buildDefaultInitiatorURLs(service) {
 
 function checkReturnURLOK(returnURL, destination, config= {}) {
 
-  console.log(1)
-
   if (config.verification_policy === 'risky') {
     return true
   }
-  console.log(2)
-
 
   if (returnURL === null || returnURL === '') {
     return false
   }
-
-  console.log(3)
-
 
   if (config.verification_policy === 'lax' && destination.return_urls.length === 0) {
     const laxURL = laxReturnURL(destination.id);
