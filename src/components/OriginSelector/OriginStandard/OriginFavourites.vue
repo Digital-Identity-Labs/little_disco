@@ -8,12 +8,15 @@ import { useFavouriteOriginIDsStore } from '@/stores/favourite_origin_ids.js'
 const props = defineProps(['request', 'destination'])
 const favStore = useFavouriteOriginIDsStore()
 const servicesData = inject('servicesData')
-const favouriteServices = computed( () => favStore.favouriteIDs.map((id) => servicesData.get(id)))
+const favouriteServices = computed(() => {
+    const selection = favStore.favouriteIDs.map((id) => servicesData.get(id))
+    return selection.filter((val) => val !== null && val !== undefined)
+  }
+)
 
 </script>
 
 <template>
-
 
   <div class="card-header">
     <h3 class="card-title">Favourites</h3>
@@ -29,6 +32,5 @@ const favouriteServices = computed( () => favStore.favouriteIDs.map((id) => serv
     />
 
   </div>
-
 
 </template>

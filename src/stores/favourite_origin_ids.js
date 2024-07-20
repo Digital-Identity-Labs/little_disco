@@ -7,7 +7,8 @@ export const useFavouriteOriginIDsStore = defineStore('favouriteOriginIDs', () =
 
   const favouriteIDs = ref([])
   const hasFavourites = computed(() => favouriteIDs.value.length > 0)
-  const ids = computed(() => favouriteIDs.value)
+  const ids = computed(() => favouriteIDs.value || [])
+  const activeID = computed(() => ids.value[0])
 
   function addID(service) {
     const id = typeof service === 'string' ? service : service.id
@@ -32,7 +33,7 @@ export const useFavouriteOriginIDsStore = defineStore('favouriteOriginIDs', () =
     favouriteIDs.value = []
   }
 
-  return { favouriteIDs, addID, delID, $reset, hasFavourites, ids }
+  return { favouriteIDs, addID, delID, $reset, hasFavourites, ids, activeID }
 
 }, { persist: true })
 

@@ -5,7 +5,6 @@ const app_defaults = {
   notice: 'Copyright Digital Identity Ltd 2024',
   show_sponsors: true,
   theme: 'default',
-  mode: 'default',
   destination_mode: 'list',
   index_mode: 'menu',
   simple_menu: true,

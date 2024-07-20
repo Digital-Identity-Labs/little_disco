@@ -11,8 +11,11 @@ const favStore = useFavouriteOriginIDsStore()
 
 const servicesData = inject('servicesData')
 
-const favouriteServices = computed( () => favStore.favouriteIDs.map((id) => servicesData.get(id)))
-
+const favouriteServices = computed(() => {
+    const selection = favStore.favouriteIDs.map((id) => servicesData.get(id))
+    return selection.filter((val) => val !== null && val !== undefined)
+  }
+)
 watch(favouriteServices, (newFavouriteServices) => {
   if (newFavouriteServices.length === 0) {
     console.log('All my favourites gone')

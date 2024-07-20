@@ -54,11 +54,20 @@ function isShown() {
   return emStore.expertMode || !!(service.hide) === false
 }
 
+function isActive() {
+  if (favStore && service) {
+    return favStore.activeID === service.id
+  } else {
+    return false
+  }
+
+}
+
 function returnURL() {
   if (props.mode === 'edit') {
-    return '#';
+    return '#'
   } else {
-    return redirector.buildReturnURL(props.service, props.request, props.destination, appConfig);
+    return redirector.buildReturnURL(props.service, props.request, props.destination, appConfig)
   }
 }
 
@@ -74,7 +83,8 @@ function returnURL() {
             <EntityLogo :service="props.service" :config="appConfig" />
           </div>
           <div class="col text-truncate">
-            <strong><span href="#" class="text-reset d-block">{{ service.name || service.id }}</span></strong>
+            <strong><span href="#" class="text-reset d-block">{{ service.name || service.id }}
+              <span v-if="isActive()" span class="badge bg-green"></span></span></strong>
             <div class="d-block text-secondary text-truncate mt-n1">{{ service.desc || '&nbsp;' }}
             </div>
           </div>
