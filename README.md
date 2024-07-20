@@ -30,7 +30,9 @@ Little Disco's notable features for system administrators:
 - Runs entirely on the user's browser, so easy to scale
 - Clean modern code written with the popular VueJS framework
 - Does not rely on CrossDomain behaviour, iframes or other cleverness
-- Can be entirely static: no backend service is required. No PHP or Java. No MDQ services.
+- Can be entirely static: no backend service is required. No PHP or Java. No MDQ services. Just a few scripts.
+- By default will properly verify return URLs to prevent open-redirection issues, but also has a best-effort 'lax' mode
+  for when data is lacking, and a 'risky' mode if you want to live dangerously
 - But admins have options: various backends and data formats are supported
 - Uses new uDisco data format: much smaller and faster than the usual DiscoFeed files (16K vs 1.5M, for example)
 - With automation it is easy to create many simple managed instances for contexts like SaaS
@@ -78,13 +80,55 @@ There are lots of configuration options to make it fit your context.
 Various features have a choice of "provider", often with a groups of settings following the pattern `thing_provider_type`
 and `thing_provider_url`. Little Disco is a client-side app so there are no passwords.
 
+### The index/root page
+
+#### Show an error
+
+#### Redirect away
+
+#### As a service menu
+
+### The WAYF/Disco selection page
+
+#### Simple mode
+
+#### As a full UI
+
+### Passive Discovery
+
+
+
 ### Destinations
 
-TBC
+
 
 ### Origins
 
 TBC
+
+### Menu items
+
+### Logos
+
+### Suggestions
+
+#### Using Geolocation Hints
+
+#### Using Network Hints
+
+#### Using Cookies
+
+### Expert Mode
+
+### Reporting usage and errors
+
+### Search
+
+### Themes
+
+### Notes on provider URLs
+
+### Notes on return URL verification
 
 ### Configuring your SP
 
@@ -103,12 +147,14 @@ a menu to acting as a discovery service.
 
   * As of 2024 this is a new project, there may be bugs. 
   * I'm new to modern Javascript and VueJS, so there might be some active learning going on
+  * Multi-language support is planned but not usable yet
+  * Tests are currently inadequate
   * The more efficient data formats require your own scripts or the [Smee](https://github.com/Digital-Identity-Labs/smee)
     libraries to generate
   * There is no central store, so Little Disco cannot behave like Seamless Access. 
   * Large federations and a slow internet connection will cause the page to take awhile to load. (For reference, the UK federation on an
   8Mb/s ADSL connection works fine)
-  * Little Disco may be slow on older, slow PCs
+  * Little Disco may be slow on older, slow PCs or older phones.
   * As a client side app Little Disco will not work with scripts and non-browser HTTP agents unless they also include JS
     rendering
   * Little Disco has not been audited or tested for accessibility yet
