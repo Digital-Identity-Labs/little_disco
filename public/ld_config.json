@@ -1,6 +1,6 @@
 {
   "simple_selector": false,
-  "index_mode": "menu",
+  "index_mode": "error",
   "index_redirection_url": "https://mimoto.co.uk",
   "origin_provider_type": "disco",
   "origin_provider_url": "/data/DiscoFeed.json",

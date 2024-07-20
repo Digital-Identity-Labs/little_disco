@@ -4,6 +4,8 @@ import { useExpertModeStore } from '@/stores/expert_mode.js'
 const props = defineProps(['errorMessage'])
 const emStore = useExpertModeStore();
 
+const message = props.errorMessage?.message || props.errorMessage
+
 </script>
 
 <template>
@@ -23,7 +25,7 @@ const emStore = useExpertModeStore();
             <h3 class="card-title">An Error Has Occurred</h3>
             <p class="text-secondary">Something has gone wrong and we can't continue.</p>
             <p class="text-secondary">This is probably not your fault.</p>
-            <p v-if="emStore.isEnabled"><code>{{props.errorMessage.message}}</code></p>
+            <p v-if="emStore.isEnabled"><code>{{message}}</code></p>
           </div>
         </div>
       </div>
