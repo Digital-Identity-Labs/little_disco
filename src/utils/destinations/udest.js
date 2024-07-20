@@ -12,7 +12,7 @@ async function lookupService(id, config, options = {}) {
     if (verifyDestination(destination)) {
       return destination;
     } else {
-      if (config.verification_policy === 'none') {
+      if (config.verification_policy === 'risky') {
         return unknownDestination(id);
       } else {
        console.log('Invalid data for this destination')

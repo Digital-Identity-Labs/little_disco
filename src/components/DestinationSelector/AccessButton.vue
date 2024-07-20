@@ -11,13 +11,15 @@ const expertInitiators = redirector.buildDefaultInitiatorURLs(service);
 
 const emStore = useExpertModeStore()
 
+console.log(defaultInitiator)
+
 </script>
 
 <template>
 
   <template v-if="service.login_urls.length !== 0">
 
-    <a v-if="emStore.isEnabled" :href="service.login_url">
+    <a v-if="emStore.isEnabled" :href="defaultInitiator">
       <div class="btn-group">
         <button type="button" class="btn btn-danger"><span class="d-md-none d-lg-block">Access&nbsp;</span> >></button>
         <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"

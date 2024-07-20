@@ -1,3 +1,5 @@
+import { laxReturnURL } from '@/utils/misc.js'
+
 function buildReturnURL(service, request, destination, config) {
 
   const returnURL = request.return || selectReturnURL(destination)
@@ -19,7 +21,7 @@ function buildPassiveReturnURL(service, request, destination, config) {
   const returnParam = request.returnIDParam || 'entityID'
   const url = new URL(returnURL)
 
-  if (!checkReturnURLOK(returnURL, destination)) {
+  if (!checkReturnURLOK(returnURL, destination, config)) {
     throw new Error('Unknown return URL')
   }
 
@@ -58,14 +60,29 @@ function buildDefaultInitiatorURLs(service) {
 
 }
 
-function checkReturnURLOK(returnURL, destination) {
+function checkReturnURLOK(returnURL, destination, config= {}) {
+
+  console.log(1)
+
+  if (config.verification_policy === 'risky') {
+    return true
+  }
+  console.log(2)
+
 
   if (returnURL === null || returnURL === '') {
     return false
   }
 
-  return destination.return_urls.some((allowedURL) => returnURL.startsWith(allowedURL))
+  console.log(3)
 
+
+  if (config.verification_policy === 'lax' && destination.return_urls.length === 0) {
+    const laxURL = laxReturnURL(destination.id);
+    return returnURL.startsWith(laxURL)
+  } else {
+    return destination.return_urls.some((allowedURL) => returnURL.startsWith(allowedURL))
+  }
 }
 
 function selectInitiatorURL(service) {

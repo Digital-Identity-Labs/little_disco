@@ -1,11 +1,12 @@
+import { laxReturnURL } from '@/utils/misc.js'
 
 function unknownDestination(id) {
   return {
     id: id,
-    name: 'Unknown service',
+    name: id,
     description: 'Warning: we have no information about this service',
     org_name: 'Unknown',
-    return_urls: [],
+    return_urls: [laxReturnURL(id)],
     login_urls: [],
     info_url: null,
     privacy_url: null,
@@ -20,5 +21,6 @@ function verifyDestination(destination) {
 
 export {
   unknownDestination,
-  verifyDestination
+  verifyDestination,
+
 }
