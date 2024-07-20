@@ -1,6 +1,7 @@
 
 import * as bemBuiltin from '@/utils/origins/builtin.js'
 import * as bemUdisco from '@/utils/origins/udisco.js'
+import * as bemDisco from '@/utils/origins/disco.js'
 import * as bemNone from '@/utils/origins/none.js'
 
 function is(is) {
@@ -11,6 +12,8 @@ function is(is) {
       return bemBuiltin;
     case 'udisco':
       return bemUdisco;
+    case 'disco':
+      return bemDisco;
     case 'none':
     case null:
       return bemNone;

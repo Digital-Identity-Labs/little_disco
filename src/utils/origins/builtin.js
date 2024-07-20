@@ -3,7 +3,6 @@ import { onlySpecified } from '@/utils/origins/common.js'
 async function listServices(config, options = {}) {
 
   const services = config.origins
-
   const origins = new Map(services.map(s => [s.id, convert(s)]))
   return onlySpecified(origins, config)
 
