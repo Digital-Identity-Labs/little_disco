@@ -1,5 +1,7 @@
 {
   "simple_selector": false,
+  "index_mode": "menu",
+  "index_redirection_url": "https://mimoto.co.uk",
   "origin_provider_type": "udisco",
   "origin_provider_url": "/data/uk_en.json",
   "net_provider_type": "header",
