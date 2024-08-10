@@ -1,0 +1,9 @@
+# Created by .ignore support plugin (hsz.mobi)
+.git
+.gitignore
+.dockerignore
+.travis.yml
+.github
+node_modules
+public/data/*
+*.tgz
