@@ -70,7 +70,10 @@ and uploading/copying files into place on a web server.
 
 ### As a Docker container
 
-TBC
+A very simple Docker file is included
+
+* Build a Docker image with `docker build -t little_disco ./`
+* Run the image with `docker run -p 8080:80 little_disco`
 
 ## Configuration
 

@@ -1,11 +1,10 @@
 FROM node:22-alpine3.19 AS builder
 
-
-
 WORKDIR /usr/local/src
 COPY . ./
 RUN npm install && npm run build --production
 
+##########################################################
 FROM httpd:alpine
 
 LABEL description="A small simple SAML discovery service" \
