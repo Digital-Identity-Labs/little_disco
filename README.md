@@ -70,10 +70,12 @@ and uploading/copying files into place on a web server.
 
 ### As a Docker container
 
-A very simple Docker file is included
+A very simple, unconfigured Docker file is included - you should customise it or mount a configuration file in it.
 
 * Build a Docker image with `docker build -t little_disco ./`
 * Run the image with `docker run -p 8080:80 little_disco`
+* Connect on http://localhost:8080/ to see the index menu or http://localhost:8080/?entityID=https%3A%2F%2Fsho.digitalidentitylabs.com%2Fshibboleth
+  to see the Discovery service
 
 ## Configuration
 
@@ -83,43 +85,231 @@ There are lots of configuration options to make it fit your context.
 Various features have a choice of "provider", often with a groups of settings following the pattern `thing_provider_type`
 and `thing_provider_url`. Little Disco is a client-side app so there are no passwords.
 
+Configuration options should be put in a file called `ld_config.json` next to the `index.html` file for Little Disco.
+It is a public file, so please *do not put any passwords in it*.
+
 ### The index/root page
 
-#### Show an error
+Little Disco includes an optional menu page of services that appears when no entity is specified.
 
-#### Redirect away
+Modes:
+  * menu: displays a menu of services, with links to more information and buttons to log in to them
+  * redirect: redirects the web browser to the URL specified with `index_redirection_url`
+  * error: displays an error page (this is the expected behaviour for other, similar services)
 
-#### As a service menu
+Providers:
+  * builtin: use the origins list in the configuration file
+
+Options:
+  * `index_mode`: select the mode. Defaults to "menu"
+  * `index_redirection_url`: The URL to be redirected to if in redirect mode
+  * `simple_menu`: set to true to for a simplified menu. (This is not implemented yet)
+  * `menu_provider_type`: the name of the provider, defaults to builtin,
+  * `menu_provider_url`: the URL of the provider's data (not needed for builtin)
+  * `max_menu`: the maximum number of SPs to show on the menu 
+
+#### Examples
+
+Show a simple menu
+```json
+{
+  "index_mode": "menu",
+  "menu_provider_type": "builtin",
+  "destinations": [
+    {
+      "id": "https://sho.digitalidentitylabs.com/shibboleth",
+      "name": "Sho",
+      "description": "A modern test SP for showing attributes",
+      "logo_url": "https://sho.digitalidentitylabs.com/sho_logo.png",
+      "login_urls": ["https://sho.digitalidentitylabs.com/Shibboleth.sso/Login"],
+      "return_urls": ["https://sho.digitalidentitylabs.com/Shibboleth.sso/Login"],
+      "privacy_url": "https://sho.digitalidentitylabs.com/privacy",
+      "info_url": null,
+      "org_name": "Digital Identity Ltd",
+      "org_url": "https://digitalidentity.co.uk"
+    },
+    {
+      "id": "https://test.ukfederation.org.uk/entity",
+      "name": "UK federation Test SP",
+      "description": "This test service provider allows you to see the attributes your identity provider is releasing.",
+      "logo_url": "https://test.ukfederation.org.uk/images/ukfedlogo.jpg",
+      "login_urls": ["https://test.ukfederation.org.uk/Shibboleth.sso/Login"],
+      "return_urls": ["https://test.ukfederation.org.uk/Shibboleth.sso/Login"],
+      "privacy_url": "https://www.ukfederation.org.uk/content/Documents/TestSPPrivacyPolicy",
+      "info_url": "https://www.ukfederation.org.uk/content/Documents/TestSPHome",
+      "org_name": "JISC",
+      "org_url": "https://www.jisc.ac.uk"
+    }
+  ]
+}
+```
+
+Redirect to documentation
+```json
+{
+  "index_mode": "redirect",
+  "index_redirection_url": "https://example.com/how_to_use_this_service"
+}
+```
+
+Show an error
+```json
+{
+  "index_mode": "error"
+}
+```
 
 ### The WAYF/Disco selection page
 
-#### Simple mode
+This is the main purpose of Little Disco. It allows users to select their IdP and be redirected back to the SP they
+wish to access.
 
-#### As a full UI
+Modes:
+  * simple: a static list of predefined IdPs is shown.
+  * full: a standard UI that can cope with many IdPs
+
+Options:
+  * `simple_selector`: setting to true enables simple mode. If set to false, the full UI will be shown
+  * `origins`: a list of origin records (IdPs) for use by the "builtin" provider
+  * `origin_provider_type`: sets the provider type
+  * `origin_provider_url`: the location of provider data
+  * `origins_only`: a list of entityIDs to use, a subset of what the provider contains
+  * `fuzzy_search`: a floating point number to control the fuzziness of searches. Defaults to 0.0 (none)
+  * `max_results`: The maximum number of search results to show
+  * `max_favourites`: The maximum number of favourites to remember
+  * `max_simple`: how many IdPs to show in simple mode
+  * `verification_policy`: strict, lax or risky. See below for more information.
+  * `request_geo:` true or false. Should the user be asked for their location?
+  * `geo_distance`: distance in metres that is considered nearby, defaults to 50000
+  * `cdc_domain:`: domain to use for hint cookie. Defaults to null 
+  * `cdc_read`: should the CDC cookie be read, and used for suggestions? Defaults to false
+  * `cdc_write`: should the CDC cookie be written, maybe for use elsewhere. Defaults to false
+  * `net_provider_type`: network information provider type
+  * `net_provider_url`:  network information provider data location
+
+#### Examples
+
+...
 
 ### Passive Discovery
 
-
-
-### Destinations
-
+Little Disco support Passive Discovery: if requested by the SP, no UI will be shown to the user. If an IdP has been
+used recently it will automatically be returned to the SP, and the user should see very little to indicate they were
+using Little Disco. If no IdP has been selected previously the user is still redirected back to the SP, and the SP can
+decide how to proceed.
 
 
 ### Origins
 
-TBC
+Origins include SAML IdPs - they are the services users authenticate with while trying to access destinations (SPs)
+
+Little Disco supports a variety of different file formats and data sources for destinations.
+
+#### Provider: Builtin
+
+This is a simple list of IdPs that's inside the main configuration file. It's useful when you have a small, static list
+of known IdPs, and particularly when using simple mode. You do not need any additional software. However, it is a
+very bad choice for general-purpose discovery services.
+
+The builtin provider uses the "origins" field in the main configuration file to store a list of records.
+
+Here is an example:
+```json
+{
+"origin_provider_type": "builtin",
+"origins": [
+{
+"id": "https://indiid.net/idp/shibboleth",
+"name": "Indiid",
+"description": "An independent identity provider",
+"logo_url": "https://indiid.net/assets/images/logo-compact-medium.png",
+"ip_hints": [],
+"domain_hints": ["indiid.net"],
+"geo_hints": ["53.48095, -2.23743"],
+"keywords": ["guest"],
+"hide": false
+},
+{
+"id": "https://test-idp.ukfederation.org.uk/idp/shibboleth",
+"name": "UK Federation Test IdP",
+"description": "A test IdP for use by UK federation members for testing their SPs",
+"logo_url": "https://test-idp.ukfederation.org.uk/idp/images/ukfedlogo.jpg",
+"ip_hints": [],
+"domain_hints": [],
+"geo_hints": [],
+"keywords": ["test"],
+"hide": false
+}
+]}
+```
+
+#### Provider: Disco
+
+The Shibboleth SP, other SPs, and other discovery services use the Disco format to list available IdPs.
+
+This data can be used by Little Disco too. It has the advantage of being widely used and stable, but is possibly inefficient.
+
+If you have a Shibboleth SP then disco data may be available at `/Shibboleth.sso/DiscoFeed`. Smee, PyFF and
+Shibboleth Metadata Aggregator can also produce Disco data.
+
+If using Smee you can convert a normal federation metadata file to Disco JSON like this:
+```elixir
+Smee.source("http://metadata.ukfederation.org.uk/ukfederation-metadata.xml")
+|> Smee.fetch!()
+|> Smee.Metadata.stream_entities()
+|> Smee.Publish.write_aggregate(format: :disco, to: "output")
+```
+
+An example configuration:
+```json
+{
+"origin_provider_type": "disco",
+"origin_provider_url": "/data/disco.json"
+}
+```
+
+#### Provider: uDisco
+uDisco is a new format created for Little Disco. It aims to be similar to the Disco format but simpler and smaller.
+
+uDisco filters out data URLs for logos and contains only one language - localisation is achieved by creating multiple
+localised files and selecting the best match. Files are often 15% to 25% the size of regular disco files when all fields
+are included, but file sizes can be reduced further by omitting optional fields.
+
+The only software currently able to create uDisco files is Smee. Here's an example snippet:
+```elixir
+Smee.source("http://metadata.ukfederation.org.uk/ukfederation-metadata.xml")
+|> Smee.fetch!()
+|> Smee.Metadata.stream_entities()
+|> Smee.Publish.write_aggregate(format: :udisco, to: "output")
+```
+
+An example configuration:
+```json
+{
+"origin_provider_type": "udisco",
+"origin_provider_url": "/data/udisco_en.json"
+}
+```
+
+### Destinations (SPs)
+
+Destinations include SAML SPs - they are the services users actually want to access.
+
+Little Disco supports a variety of different file formats and data sources for destinations.
+
+Destinations are used for the menu, to provide information about the service users are accessing, and to validate the
+return addresses of services.
+
+#### Provider: Builtin
+
+#### Provider: uDest
+
 
 ### Menu items
 
+#### Provider: Builtin
+
 ### Logos
-
-### Suggestions
-
-#### Using Geolocation Hints
-
-#### Using Network Hints
-
-#### Using Cookies
 
 ### Expert Mode
 
@@ -128,6 +318,9 @@ TBC
 ### Search
 
 ### Themes
+
+* `default_image_url`: the location of an image to use as a placeholder logo for IdPs
+
 
 ### Notes on provider URLs
 
@@ -208,3 +401,28 @@ Copyright (c) 2024 Digital Identity Ltd, UK
 LittleDisco is Apache 2.0 licensed.
 
 The disco icon is (c) [Blaise Sewell]https://thenounproject.com/creator/blaisetsewell/) and is CC BY 3.0 licensed
+
+
+"origins": [
+{
+"id": "https://indiid.net/idp/shibboleth",
+"name": "Indiid",
+"description": "An independent identity provider",
+"logo_url": "https://indiid.net/assets/images/logo-compact-medium.png",
+"ip_hints": [],
+"domain_hints": ["indiid.net"],
+"geo_hints": ["53.48095, -2.23743"],
+"keywords": ["guest"],
+"hide": false,
+},
+{
+"id": "https://test-idp.ukfederation.org.uk/idp/shibboleth",
+"name": "UK Federation Test IdP",
+"description": "A test IdP for use by UK federation members for testing their SPs",
+"logo_url": "https://test-idp.ukfederation.org.uk/idp/images/ukfedlogo.jpg",
+"ip_hints": [],
+"domain_hints": [],
+"geo_hints": [],
+"keywords": ["test"],
+"hide": false
+}
