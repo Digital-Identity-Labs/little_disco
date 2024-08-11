@@ -353,6 +353,7 @@ This provider uses a format invented for Little Disco, and the counterpart of th
 
 Unlike the discovery feed formats this does not use a single large file. Each service has its own file with a filename of 
 entityhash.json, for example, `18a6d01ee45ac187b464c9ebae5d36a8f28d197d.json`. Specify the base path instead of a file location.
+**The actual json files need to be in a subdirectory of the base path, named after their language**. So for example if the `dest_provider_url` is "/data/udest/", the directory on disk needs to be "data/udest/en" for default and English files.
 
 You can restrict the usuable entities while still converting an entire federation by using "destinations_only" and a list of
 entity IDs.
