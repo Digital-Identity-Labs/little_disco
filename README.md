@@ -19,10 +19,10 @@ Little Disco's notable features for users:
   - Simple, fast, clear user interface with familiar layout
   - Suggestions for new users based on IP addresses, geo-location, shared cookies and other hints
   - Integrated search with fuzziness and weighting to help find IdPs
-  - Passive Discovery for when you don't want show a user interface at all
+  - Passive Discovery for when you don't want to show a user interface at all
   - Optional service menu to help users access or test certain services
   - Simplified UI for business and research and niche contexts
-  - Can easily show hidden IdPs (which are not needed by most users but are sometimes needed for testing)
+  - Users can easily show hidden IdPs (which are not needed by most users but are sometimes needed for testing)
 
 Little Disco's notable features for system administrators:
 
@@ -31,7 +31,7 @@ Little Disco's notable features for system administrators:
 - Clean modern code written with the popular VueJS framework
 - Does not rely on CrossDomain behaviour, iframes or other cleverness
 - Can be entirely static: no backend service is required. No PHP or Java. No MDQ services. Just a few scripts.
-- By default will properly verify return URLs to prevent open-redirection issues, but also has a best-effort 'lax' mode
+- By default Little Disco will properly verify return URLs to prevent open-redirection issues, but also has a best-effort 'lax' mode
   for when data is lacking, and a 'risky' mode if you want to live dangerously
 - But admins have options: various backends and data formats are supported
 - Uses new uDisco data format: much smaller and faster than the usual DiscoFeed files (16K vs 1.5M, for example)
@@ -46,7 +46,7 @@ Little Disco's notable features for system administrators:
 
 There is a live demo of Little Disco's service page at [https://littledisco.digitalidentitylabs.com](https://littledisco.digitalidentitylabs.com)
 
-You can see Little Disco's disco page in action by access [Sho](https://sho.digitalidentitylabs.com) (Your institution 
+You can see Little Disco's disco page in action by accessing [Sho](https://sho.digitalidentitylabs.com) (Your institution 
 may not have metadata for Sho yet, so don't expect to actually login)
 
 ## Installation
@@ -70,7 +70,7 @@ and uploading/copying files into place on a web server.
 
 ### As a Docker container
 
-A very simple, unconfigured Docker file is included - you should customise it or mount a configuration file in it.
+A very simple, unconfigured Dockerfile is included - you should customise it or mount a configuration file in it.
 
 * Build a Docker image with `docker build -t little_disco ./`
 * Run the image with `docker run -p 8080:80 little_disco`
@@ -187,9 +187,6 @@ Options:
   * `net_provider_type`: network information provider type
   * `net_provider_url`:  network information provider data location
 
-#### Examples
-
-...
 
 ### Passive Discovery
 
@@ -218,29 +215,30 @@ Here is an example:
 {
 "origin_provider_type": "builtin",
 "origins": [
-{
-"id": "https://indiid.net/idp/shibboleth",
-"name": "Indiid",
-"description": "An independent identity provider",
-"logo_url": "https://indiid.net/assets/images/logo-compact-medium.png",
-"ip_hints": [],
-"domain_hints": ["indiid.net"],
-"geo_hints": ["53.48095, -2.23743"],
-"keywords": ["guest"],
-"hide": false
-},
-{
-"id": "https://test-idp.ukfederation.org.uk/idp/shibboleth",
-"name": "UK Federation Test IdP",
-"description": "A test IdP for use by UK federation members for testing their SPs",
-"logo_url": "https://test-idp.ukfederation.org.uk/idp/images/ukfedlogo.jpg",
-"ip_hints": [],
-"domain_hints": [],
-"geo_hints": [],
-"keywords": ["test"],
-"hide": false
+  {
+    "id": "https://indiid.net/idp/shibboleth",
+    "name": "Indiid",
+    "description": "An independent identity provider",
+    "logo_url": "https://indiid.net/assets/images/logo-compact-medium.png",
+    "ip_hints": [],
+    "domain_hints": ["indiid.net"],
+    "geo_hints": ["53.48095, -2.23743"],
+    "keywords": ["guest"],
+    "hide": false
+  },
+  {
+    "id": "https://test-idp.ukfederation.org.uk/idp/shibboleth",
+    "name": "UK Federation Test IdP",
+    "description": "A test IdP for use by UK federation members for testing their SPs",
+    "logo_url": "https://test-idp.ukfederation.org.uk/idp/images/ukfedlogo.jpg",
+    "ip_hints": [],
+    "domain_hints": [],
+    "geo_hints": [],
+    "keywords": ["test"],
+    "hide": false
+  }
+ ]
 }
-]}
 ```
 
 #### Provider: Disco
@@ -426,8 +424,8 @@ Example:
 This provider is available for when if it is not possible to use the header provider. It will make a call to a Cloudflare service
 that returns information about the connection, including the IP address.
 
-There are some drawbacks: it may be slower, there are no guarantees the service is available, and the user's IP address
-may be logged by a third-party service in a different region.
+This has the same privacy and availability risks as the Amazon provider but at least gives you a choice of privacy and
+availability risks.
 
 ```json
 {
@@ -615,29 +613,5 @@ Copyright (c) 2024 Digital Identity Ltd, UK
 
 LittleDisco is Apache 2.0 licensed.
 
-The disco icon is (c) [Blaise Sewell]https://thenounproject.com/creator/blaisetsewell/) and is CC BY 3.0 licensed
+The disco icon is (c) [Blaise Sewell](https://thenounproject.com/creator/blaisetsewell/) and is CC BY 3.0 licensed
 
-
-"origins": [
-{
-"id": "https://indiid.net/idp/shibboleth",
-"name": "Indiid",
-"description": "An independent identity provider",
-"logo_url": "https://indiid.net/assets/images/logo-compact-medium.png",
-"ip_hints": [],
-"domain_hints": ["indiid.net"],
-"geo_hints": ["53.48095, -2.23743"],
-"keywords": ["guest"],
-"hide": false,
-},
-{
-"id": "https://test-idp.ukfederation.org.uk/idp/shibboleth",
-"name": "UK Federation Test IdP",
-"description": "A test IdP for use by UK federation members for testing their SPs",
-"logo_url": "https://test-idp.ukfederation.org.uk/idp/images/ukfedlogo.jpg",
-"ip_hints": [],
-"domain_hints": [],
-"geo_hints": [],
-"keywords": ["test"],
-"hide": false
-}
