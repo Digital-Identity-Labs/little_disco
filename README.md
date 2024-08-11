@@ -201,7 +201,7 @@ decide how to proceed.
 
 ### Origins
 
-Origins include SAML IdPs - they are the services users authenticate with while trying to access destinations (SPs)
+"Origins" include SAML IdPs - they are the services users authenticate with while trying to access destinations (SPs)
 
 Little Disco supports a variety of different file formats and data sources for destinations.
 
@@ -291,9 +291,11 @@ An example configuration:
 }
 ```
 
+The [JSON schema for uDisco](https://github.com/Digital-Identity-Labs/smee/blob/main/test/support/schema/udisco_schema.json) is in the Smee repository
+
 ### Destinations (SPs)
 
-Destinations include SAML SPs - they are the services users actually want to access.
+"Destinations" include SAML SPs - they are the services users actually want to access.
 
 Little Disco supports a variety of different file formats and data sources for destinations.
 
@@ -302,29 +304,241 @@ return addresses of services.
 
 #### Provider: Builtin
 
+This is a simple list of SPs inside the main configuration file. It's useful when you have a small, static list
+of known SPs, such as when Little Disco is providing discovery for only one or two services. You do not need any
+additional software. It is a very bad choice for general-purpose discovery services.
+
+The builtin provider uses the "destinations" field in the main configuration file to store a list of records.
+
+* `login_urls` contains a list of URLs used by the menu feature of Little Disco. The first one is the default.
+* `return_urls` contains a list of SP base URLs that will be permitted during discovery if Little Disco is strictly verifying
+  redirects.
+
+All fields apart from `id` are optional.
+
+Example:
+```json
+{
+  "dest_provider_type": "builtin",
+  "destinations": [
+    {
+      "id": "https://sho.digitalidentitylabs.com/shibboleth",
+      "name": "Sho",
+      "description": "A modern test SP for showing attributes",
+      "logo_url": "https://sho.digitalidentitylabs.com/sho_logo.png",
+      "login_urls": ["https://sho.digitalidentitylabs.com/Shibboleth.sso/Login"],
+      "return_urls": ["https://sho.digitalidentitylabs.com/Shibboleth.sso/Login"],
+      "privacy_url": "https://sho.digitalidentitylabs.com/privacy",
+      "info_url": null,
+      "org_name": "Digital Identity Ltd",
+      "org_url": "https://digitalidentity.co.uk"
+    },
+    {
+      "id": "https://test.ukfederation.org.uk/entity",
+      "name": "UK federation Test SP",
+      "description": "This test service provider allows you to see the attributes your identity provider is releasing.",
+      "logo_url": "https://test.ukfederation.org.uk/images/ukfedlogo.jpg",
+      "login_urls": ["https://test.ukfederation.org.uk/Shibboleth.sso/Login"],
+      "return_urls": ["https://test.ukfederation.org.uk/Shibboleth.sso/Login"],
+      "privacy_url": "https://www.ukfederation.org.uk/content/Documents/TestSPPrivacyPolicy",
+      "info_url": "https://www.ukfederation.org.uk/content/Documents/TestSPHome",
+      "org_name": "JISC",
+      "org_url": "https://www.jisc.ac.uk"
+    }
+  ]
+}
+```
+
 #### Provider: uDest
 
+This provider uses a format invented for Little Disco, and the counterpart of the uDisco format.
 
-### Menu items
+Unlike the discovery feed formats this does not use a single large file. Each service has its own file with a filename of 
+entityhash.json, for example, `18a6d01ee45ac187b464c9ebae5d36a8f28d197d.json`. Specify the base path instead of a file location.
 
-#### Provider: Builtin
+You can restrict the usuable entities while still converting an entire federation by using "destinations_only" and a list of
+entity IDs.
+
+Example:
+```json
+{
+  "dest_provider_type": "udest",
+  "dest_provider_url": "/data/udest/",
+  "destinations_only": ["https://test.ukfederation.org.uk/entity", "https://sho.digitalidentitylabs.com/shibboleth"]
+}
+```
+
+You can create these files with Smee. Here's an example snippet:
+```elixir
+Smee.source("http://metadata.ukfederation.org.uk/ukfederation-metadata.xml")
+|> Smee.fetch!()
+|> Smee.Metadata.stream_entities()
+|> Smee.Publish.write_items(format: :udest, to: "output/udest")
+```
+
+The [JSON schema for uDest](https://github.com/Digital-Identity-Labs/smee/blob/main/test/support/schema/udest_schema.json) is in the Smee repository
+
+### Network information
+
+Little Disco can use the user's IP address to suggest IdPs on the same network but as Little Disco is a client-side,
+single-page application running in the browser it has no direct access to the user's IP address. This problem is overcome
+by using a Network Information provider.
+
+#### Provider: Header
+
+This is the default. Little Disco will look for a header from the hosting webserver called "LittleDisco-CIP" that contains
+an IP address. This is a special header and you will need access to the hosting web server configuration to add it.
+
+The webserver is almost certainly already logging the user's IP address and this provider adds no additional data 
+protection concerns.
+
+Here is an example Apache configuration:
+
+```apacheconf
+Header set LittleDisco-CIP %{REMOTE_ADDR}s
+```
+
+Example
+```json
+{
+  "net_provider_type": "header",
+  "net_provider_url": "/"
+}
+```
+
+#### Provider: Amazon
+
+This provider is available for use if it is not possible to use the header provider. It will make a call to an Amazon AWS service
+that returns the user's IP address.
+
+There are some drawbacks: it may be slower, there are no guarantees the service is available, and the user's IP address
+may be logged by a third-party service in a different region.
+
+Example:
+```json
+{
+  "net_provider_type": "amazon"
+}
+```
+
+#### Provider: Cloudflare
+
+This provider is available for when if it is not possible to use the header provider. It will make a call to a Cloudflare service
+that returns information about the connection, including the IP address.
+
+There are some drawbacks: it may be slower, there are no guarantees the service is available, and the user's IP address
+may be logged by a third-party service in a different region.
+
+```json
+{
+  "net_provider_type": "cloudflare"
+}
+```
+
+#### Provider: None
+
+You also have the option of simply not checking IP addresses at all. Just set the provider type to "none"
+
+```json
+{
+  "net_provider_type": "none"
+}
+```
 
 ### Logos
 
+Little Disco will try to display logos for IdPs and SPs, or a place holder if none is available.
+
+There are currently no logo providers other than "builtin" which uses logo information in the uDest or uDisco files.
+
 ### Expert Mode
 
-### Reporting usage and errors
+Little Disco's pages include an "Expert Mode" switch, which if enabled with show more technical details and options.
+
+In the menu it will show options to try alternative login options such as forced authentication or passive mode.
+
+In the discovery IdP selector it will show hidden IdPs.
+
+Options:
+* `em_default`: if true then Expert Mode will be enabled by default. Defaults to false.
 
 ### Search
 
+Little Disco contains a built-in, client-side search engine ([Minisearch](https://lucaong.github.io/minisearch/))
+
+Options
+* `fuzzy_search`: a floating point number to control the fuzziness of searches. Defaults to 0.0 (none)
+* `max_results`: The maximum number of search results to show
+  
+### Suggestions
+
+If the user has no existing favourites then Little Disco will attempt to suggest a few. How well this works depends
+on the information Little Disco has about IdPs/Origins and the information it has about the user.
+
+If `request_geo` is set to true the user will be asked to share their location. What distance counts as "nearby" is set
+using a number for `geo_distance` in meters
+
+The user's IP address will be compared to known network ranges
+
+There is *very* limited support for the Shibboleth Common Domain Cookie approach 
+
+### Reporting usage and errors
+
+As a client-side application there is no logging on the server except for normal web server logs.
+
+Some error information may be available in the user's browser if the page is inspected.
+
+Little Disco has two optional external services for monitoring and logging errors. Both services appear to be 
+privacy-respecting, ethical companies based in the EU.
+
+#### Plausible stats
+
+[Plausible](https://plausible.io/simple-web-analytics) offers a lightweight, cookie-less, ethical alternative to
+Google Analytics. It will show usage traffic with simple graphs and CSV exports.
+
+You can enable Plausible with a couple of configuration options:
+
+* `use_plausible`: set to true. 
+* `plausible_domain`: your site's domain
+
+#### Appsignal error reporting
+
+[AppSignal](https://www.appsignal.com) provides an error monitoring and logging service. If enabled, uncaught exceptions
+will be sent to your AppSignal account.
+
+* `use_appsignal`: set to true to enable AppSignal integration
+* `appsignal_key`: store the key for this AppSignal application integration.
+
 ### Themes
 
-* `default_image_url`: the location of an image to use as a placeholder logo for IdPs
+Little Disco has limited support for customising its look and feel.
 
+* `app_name`: The name Little Disco uses for itself
+* `service_title`: the title of pages
+* `app_url`:  the URL Little Disco uses to link to itself
+* `notice`: Text shown in the footer - defaults to copyright information
+* `show_sponsors`: if set to true the project sponsors will be shown
+* `theme`: This should select the additional CSS in /theme but it doesn't actually work yet `TODO`
+* `default_image_url`: the location of an image to use as a placeholder logo for IdPs
 
 ### Notes on provider URLs
 
+Little Disco is a Javascript application running in the user's browser and so its access to data URLs has restrictions.
+You should be able to use provider URLs pointing to Little Disco's own server/domain without issue.
+
+URLs on other services may be restricted by CORS rules. Please read about [CORS](https://javascript.info/fetch-crossorigin)
+
 ### Notes on return URL verification
+
+Little Disco will redirect users back to the SP after they have selected an IdP. This potentially allows Little Disco
+to be used in redirection attacks and scams, so by default Little Disco will strictly check the URL to return to against
+known good URLs for that service. In the uDest format these are in the `return_urls` list.
+
+There are three available modes with hopefully helpful names:
+* `strict`: the base return URL must match a known return URL
+* `lax`: if there are no known return URLs Little Disco will allow other known URLs or parts of the entity ID to be used 
+  as evidence of a safe URL. 
+* `risky`: there will be no checking at all. This should only be used when testing.
 
 ### Configuring your SP
 
@@ -344,16 +558,17 @@ a menu to acting as a discovery service.
   * As of 2024 this is a new project, there may be bugs. 
   * I'm new to modern Javascript and VueJS, so there might be some active learning going on
   * Multi-language support is planned but not usable yet
-  * Tests are currently inadequate
+  * Tests are currently very inadequate. 
   * The more efficient data formats require your own scripts or the [Smee](https://github.com/Digital-Identity-Labs/smee)
     libraries to generate
   * There is no central store, so Little Disco cannot behave like Seamless Access. 
-  * Large federations and a slow internet connection will cause the page to take awhile to load. (For reference, the UK federation on an
-  8Mb/s ADSL connection works fine)
+  * Large federations and a slow internet connection will cause the page to take awhile to load. (For reference, the large UK federation on an
+  8Mb/s ADSL connection works surprisingly well)
   * Little Disco may be slow on older, slow PCs or older phones.
-  * As a client side app Little Disco will not work with scripts and non-browser HTTP agents unless they also include JS
+  * As a client-side app Little Disco will not work with scripts and non-browser HTTP agents unless they also include JS
     rendering
   * Little Disco has not been audited or tested for accessibility yet
+  * Localization is currently missing
 
 ## Alternatives
 
@@ -379,7 +594,7 @@ Little Disco is new, but this sort of software has been around for well over a d
 * `npm install`
 * `npm run dev` to run a local copy
 
-You can run test with `npm run test:unit`
+You can run tests with `npm run test:unit`
 
 You can lint with `npm run lint`
 
