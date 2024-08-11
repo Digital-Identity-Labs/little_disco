@@ -42,6 +42,11 @@ Little Disco's notable features for system administrators:
 - It's possible to extend Little Disco's functionality with additional backends, some of which will be available commercially
   from [Mimoto](https://mimoto.co.uk)
 
+## Screenshots
+
+<img src="docs/images/menu.png" width="200" />
+<img src="docs/images/search.png" width="200" />
+
 ## Live Demo 
 
 There is a live demo of Little Disco's service page at [https://littledisco.digitalidentitylabs.com](https://littledisco.digitalidentitylabs.com)
