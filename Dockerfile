@@ -5,7 +5,7 @@ COPY . ./
 RUN npm install && npm run build --production
 
 ##########################################################
-FROM httpd:alpine
+FROM httpd:2.4.66-alpine3.23
 
 LABEL description="A small simple SAML discovery service" \
       maintainer="pete@digitalidentitylabs.com" \
